@@ -41,7 +41,7 @@ jobs:
 
       # 7) Upload APK as workflow artifact
       - name: Upload APK artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: goblingo-android-apk
           path: build/app/outputs/flutter-apk/*.apk
@@ -79,7 +79,7 @@ jobs:
 
       # 7) Upload IPA as workflow artifact
       - name: Upload iOS IPA artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: goblingo-ios-ipa
           path: build/ios/ipa/*.ipa
