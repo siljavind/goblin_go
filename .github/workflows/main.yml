@@ -1,107 +1,85 @@
 # .github/workflows/main.yml
-name: Android CI / Build & Release APK + iOS
+name: CI (Analyze, Test, Build APK & IPA)
 
-# Define events that trigger this workflow
 on:
   push:
-    # Run on pushes to the main branch
     branches: [ main ]
-    # Also run when a tag matching v*.*.* is pushed (e.g., v1.2.3)
-    tags: [ 'v*.*.*' ]
   pull_request:
-    # Run on pull requests targeting main
     branches: [ main ]
 
 jobs:
-  # Android build & test job
   android:
-    # Use the latest Ubuntu runner for Android builds
+    name: Android Build
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout the repository so we can access the code
+      # 1) Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Set up Flutter on the runner (stable channel)
+      # 2) Install Flutter SDK (stable channel)
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      # 3) Install project dependencies defined in pubspec.yaml
+      # 3) Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4) Run static analysis (lint/type checks). --no-fatal-warnings allows warnings but fails on errors.
+      # 4) Static analysis
       - name: Run analyzer
         run: flutter analyze --no-fatal-warnings
 
-      # 5) Execute unit tests and collect coverage
+      # 5) Unit tests
       - name: Run tests
         run: flutter test --coverage
 
-      # 6) Build release APKs, splitting per ABI (arm, x86, etc.) for smaller app size
-      - name: Build Android APKs
+      # 6) Build release APK (split per ABI)
+      - name: Build Android APK
         run: flutter build apk --release --split-per-abi
 
-      # 7) Upload the generated APK files as workflow artifacts
+      # 7) Upload APK as workflow artifact
       - name: Upload APK artifact
         uses: actions/upload-artifact@v3
         with:
-          # A human-readable name for the artifact
-          name: apk
-          # Path to all generated APK files
+          name: goblingo-android-apk
           path: build/app/outputs/flutter-apk/*.apk
 
-      # 8) Create or update a GitHub Release when a version tag is pushed
-      - name: Create or update Release (Android)
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: ncipollo/release-action@v1
-        with:
-          # Use the tag name (e.g. v1.2.3) as the Release tag and title
-          tag: ${{ github.ref_name }}
-          # Attach the APK files built above to the Release
-          artifacts: build/app/outputs/flutter-apk/*.apk
-
-  # iOS build job, runs after Android job completes
   ios:
-    # Ensure iOS build only runs if Android job succeeded
-    needs: android
-    # Must run on macOS to build iOS artifacts
+    name: iOS Build
     runs-on: macos-latest
 
     steps:
-      # 1) Checkout the repository again for the iOS context
+      # 1) Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Set up Flutter (stable channel) on macOS runner
+      # 2) Install Flutter SDK (stable channel)
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      # 3) Install dependencies
+      # 3) Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4) Run static analysis to catch any code issues early
+      # 4) Static analysis
       - name: Run analyzer
         run: flutter analyze --no-fatal-warnings
 
-      # 5) Execute unit tests on the iOS environment (same tests as Android)
+      # 5) Unit tests
       - name: Run tests
         run: flutter test --coverage
 
-      # 6) Build iOS release (without code signing).
-      #    --no-codesign avoids provisioning/certificate issues in CI.
+      # 6) Build iOS release (no code signing)
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
 
-      # 7) Upload generated .ipa as an artifact for manual distribution/testing
+      # 7) Upload IPA as workflow artifact
       - name: Upload iOS IPA artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ipa
+          name: goblingo-ios-ipa
           path: build/ios/ipa/*.ipa
