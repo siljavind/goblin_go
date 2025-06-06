@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'viewModels/settings_viewmodel.dart';
-import 'views/settings_screen.dart';
-import 'views/home_screen.dart';
 import 'views/history_screen.dart';
+import 'views/home_screen.dart';
+import 'views/settings/settings_screen.dart';
 
 void main() {
   runApp(
-      ChangeNotifierProvider(
-        create: (_) => SettingsViewModel(),
-        child: const GoblinGoApp(),
-      ),
+    ChangeNotifierProvider(
+      create: (_) => SettingsViewModel(),
+      child: const GoblinGoApp(),
+    ),
   );
 }
 
@@ -50,13 +50,13 @@ class MainScaffold extends StatefulWidget {
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
-class _MainScaffoldState extends State<MainScaffold>{
+class _MainScaffoldState extends State<MainScaffold> {
   int currentPageIndex = 1;
 
   static const List<Widget> _pages = [
     HistoryScreen(),
     HomeScreen(),
-    SettingsScreen()
+    SettingsScreen(),
   ];
 
   @override
@@ -77,20 +77,11 @@ class _MainScaffoldState extends State<MainScaffold>{
             icon: Icon(Icons.calendar_today),
             label: 'History',
           ),
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ]
+          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
+        ],
       ),
-      body: IndexedStack(
-        index: currentPageIndex,
-        children: _pages
-      ),
+      body: IndexedStack(index: currentPageIndex, children: _pages),
     );
   }
 }

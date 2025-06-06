@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsViewModel extends ChangeNotifier {
   static const _keyDailyGoal = 'daily_goal';
   static const _keyThemeMode = 'theme_mode';
-  static const _keyUsername   = 'username';
+  static const _keyUsername = 'username';
 
   int _dailyGoal = 20;
   ThemeMode _themeMode = ThemeMode.system;
@@ -31,7 +31,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
-    if (mode.name == _themeMode) return;
+    if (mode == _themeMode) return;
 
     _themeMode = mode;
     notifyListeners();
@@ -39,6 +39,7 @@ class SettingsViewModel extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_keyThemeMode, mode.index);
   }
+
   Future<void> setUsername(String name) async {
     if (name == _username) return;
 
@@ -52,8 +53,9 @@ class SettingsViewModel extends ChangeNotifier {
   Future<void> _loadFromPrefs() async {
     final prefs = await SharedPreferences.getInstance();
 
-    if (prefs.containsKey(_keyDailyGoal))
+    if (prefs.containsKey(_keyDailyGoal)) {
       _dailyGoal = prefs.getInt(_keyDailyGoal)!;
+    }
 
     if (prefs.containsKey(_keyThemeMode)) {
       final storedIndex = prefs.getInt(_keyThemeMode)!;
