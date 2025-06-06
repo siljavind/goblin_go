@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import '../../viewModels/settings_viewmodel.dart';
 import '../settings/setting_card.dart';
 
-//TODO: Rework layout
+// TODO: Rework layout
 // Slider label elsewhere
 // Saving username
 // Reset progress for the day if user changes daily goal?
+// TODO: Add tests
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
