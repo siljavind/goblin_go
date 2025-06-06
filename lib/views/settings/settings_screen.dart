@@ -87,7 +87,7 @@ class SettingsScreen extends StatelessWidget {
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(trackHeight: 40),
                   child: Slider(
-                    value: vm.dailyGoal.toDouble().clamp(5.0, 180.0),
+                    value: vm.dailyGoal.clamp(5, 180).toDouble(),
                     min: 5,
                     max: 180,
                     divisions: (180 - 5) ~/ 5,
