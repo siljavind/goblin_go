@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'viewModels/settings_viewmodel.dart';
 import 'views/settings_screen.dart';
 import 'views/home_screen.dart';
 import 'views/history_screen.dart';
 
 void main() {
-  runApp(const GoblinGoApp());
+  runApp(
+      ChangeNotifierProvider(
+        create: (_) => SettingsViewModel(),
+        child: const GoblinGoApp(),
+      ),
+  );
 }
 
 class GoblinGoApp extends StatelessWidget {
@@ -12,14 +20,25 @@ class GoblinGoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settingsVM = context.watch<SettingsViewModel>();
+
     return MaterialApp(
-        debugShowCheckedModeBanner: true,
-        title: 'GoblinGo',
+      debugShowCheckedModeBanner: false,
+      title: 'GoblinGo',
       theme: ThemeData(
-        // useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        useMaterial3: true,
+        brightness: Brightness.light,
       ),
-      home: const MainScaffold()
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.green,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: settingsVM.themeMode,
+      home: const MainScaffold(),
     );
   }
 }
