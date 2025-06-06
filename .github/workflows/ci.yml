@@ -1,6 +1,6 @@
 #TODO: Look at this file when more of the app is implemented.
-# .github/workflows/flutter-ci.yml
-name: Flutter CI (Analyze, Test, Build APK & IPA)
+# .github/workflows/ci.yml
+name: ci
 
 on:
   push:
@@ -9,77 +9,74 @@ on:
     branches: [ main ]
 
 jobs:
-  android:
-    name: Android Build
+  analyze_and_test:
+    name: Analyze and Test
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Install Flutter SDK (stable channel)
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      # 3) Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4) Static analysis
       - name: Run analyzer
         run: flutter analyze --no-fatal-warnings
 
-      # 5) Unit tests
       - name: Run tests
         run: flutter test --coverage
 
-      # 6) Build release APK (split per ABI)
+  build_android:
+    name: Build Android APK
+    needs: analyze_and_test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
       - name: Build Android APK
         run: flutter build apk --release --split-per-abi
 
-      # 7) Upload APK as workflow artifact
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: goblingo-android-apk
           path: build/app/outputs/flutter-apk/*.apk
 
-  ios:
-    needs: android
-    name: iOS Build
+  build_ios:
+    name: Build iOS IPA
+    needs: analyze_and_test
     runs-on: macos-latest
-
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
-      # 1) Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2) Install Flutter SDK (stable channel)
       - name: Set up Flutter SDK
         uses: subosito/flutter-action@v2
         with:
           channel: stable
 
-      # 3) Fetch dependencies
       - name: Install dependencies
         run: flutter pub get
 
-      # 4) Static analysis
-      - name: Run analyzer
-        run: flutter analyze --no-fatal-warnings
-
-      # 5) Unit tests
-      - name: Run tests
-        run: flutter test --coverage
-
-      # 6) Build iOS release (no code signing)
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
 
-      # 7) Upload IPA as workflow artifact
       - name: Upload iOS IPA artifact
         uses: actions/upload-artifact@v4
         with:
