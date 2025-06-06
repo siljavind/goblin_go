@@ -1,41 +1,13 @@
-#TODO: Look at this file when more of the app is implemented.
-# .github/workflows/ci.yml
-name: ci
+# .github/workflows/ci_build.yml
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  analyze_and_test:
-    name: Analyze and Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Run analyzer
-        run: flutter analyze --no-fatal-warnings
-
-      - name: Run tests
-        run: flutter test --coverage
-
   build_android:
     name: Build Android APK
-    needs: analyze_and_test
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -59,9 +31,7 @@ jobs:
 
   build_ios:
     name: Build iOS IPA
-    needs: analyze_and_test
     runs-on: macos-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
