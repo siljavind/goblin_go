@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../viewModels/settings_viewmodel.dart';
+import '../../view_models/settings_viewmodel.dart';
 import '../settings/setting_card.dart';
 
 // TODO: Rework layout

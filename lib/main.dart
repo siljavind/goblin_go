@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'viewModels/settings_viewmodel.dart';
+import 'view_models/settings_viewmodel.dart';
 import 'views/history_screen.dart';
 import 'views/home_screen.dart';
 import 'views/settings/settings_screen.dart';
@@ -23,7 +23,7 @@ class GoblinGoApp extends StatelessWidget {
     final settingsVM = context.watch<SettingsViewModel>();
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       title: 'GoblinGo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),

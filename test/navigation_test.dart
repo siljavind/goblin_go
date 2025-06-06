@@ -22,6 +22,6 @@ void main() {
     // Tap the Settings icon
     await tester.tap(find.byIcon(Icons.settings));
     await tester.pumpAndSettle();
-    expect(find.text('Settings'), findsOneWidget);
+    expect(find.text('Settings'), findsOne);
   });
 }
