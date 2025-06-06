@@ -20,17 +20,7 @@ class GoblinGoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeMode themeMode;
-
-    try {
-      // Try to read the SettingsViewModel. If none is found, this throws.
-      final vm = Provider.of<SettingsViewModel>(context, listen: false);
-      themeMode = vm.themeMode;
-    } catch (_) {
-      // No provider above GoblinGoApp → fall back to system
-      themeMode = ThemeMode.system;
-    }
-
+    final themeMode = context.watch<SettingsViewModel>().themeMode;
     return MaterialApp(
       debugShowCheckedModeBanner: true,
       title: 'GoblinGo',
