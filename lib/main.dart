@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:goblin_go/location_service.dart';
+import 'package:goblin_go/view_models/location_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'view_models/settings_viewmodel.dart';
@@ -8,8 +10,14 @@ import 'views/settings/settings_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => SettingsViewModel(),
+    MultiProvider(
+      providers: [
+        Provider(create: (_) => LocationService()),
+        ChangeNotifierProvider(
+          create: (ctx) => LocationViewModel(ctx.read<LocationService>()),
+        ),
+        ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+      ],
       child: const GoblinGoApp(),
     ),
   );

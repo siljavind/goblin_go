@@ -5,10 +5,11 @@ import '../../view_models/settings_viewmodel.dart';
 import '../settings/setting_card.dart';
 
 // TODO: Rework layout
-// Slider label elsewhere
-// Saving username
-// Reset progress for the day if user changes daily goal?
+// TODO: Slider label elsewhere
+// TODO: Saving username
+// TODO: Reset progress for the day if user changes daily goal?
 // TODO: Add tests
+// TODO: Refactor if there's time
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
