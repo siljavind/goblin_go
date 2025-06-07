@@ -7,6 +7,7 @@ plugins {
 
 android {
     namespace = "com.example.goblin_go"
+
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
