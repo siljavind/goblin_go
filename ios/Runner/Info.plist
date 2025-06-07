@@ -48,12 +48,12 @@
 
     <key>UIBackgroundModes</key>
     <array>
-      <string>location</string>
+       <string>location</string>
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>We need your location to count outdoor minutes.</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>We need your location even when the app is closed to keep counting outdoor minutes.</string>
+    <string>We need your location even when the app is closed.</string>
 
 </dict>
 </plist>

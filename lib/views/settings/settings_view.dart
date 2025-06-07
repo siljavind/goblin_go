@@ -10,8 +10,8 @@ import '../settings/setting_card.dart';
 // TODO: Reset progress for the day if user changes daily goal?
 // TODO: Add tests
 // TODO: Refactor if there's time
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+class SettingsView extends StatelessWidget {
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {

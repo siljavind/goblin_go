@@ -1,23 +1,27 @@
-import 'package:background_locator_2/location_dto.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../services/background_location_service.dart';
 
 class LocationViewModel extends ChangeNotifier {
-  LocationDto? _current;
-  String? _error;
+  LocationViewModel(this._location);
 
-  LocationDto? get current => _current;
-  String? get error => _error;
+  final LocationService _location;
 
-  void onLocationData(dynamic data) {
-    if (data is LocationDto) {
-      _current = data;
-      _error = null;
+  Position? _latest;
+  Position? get latest => _latest;
+
+  void init() {
+    _location.positionStream().listen((position) {
+      _latest = position;
       notifyListeners();
-    }
+    });
   }
 
-  void onError(dynamic error) {
-    _error = error.toString();
-    notifyListeners();
-  }
+  // LocationViewModel(this._location) {
+  //   _location.positions().listen((position) {
+  //     _latest = position;
+  //     notifyListeners();
+  //   });
+  // }
 }
