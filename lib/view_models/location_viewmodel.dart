@@ -1,39 +1,23 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:goblin_go/location_service.dart';
+import 'package:background_locator_2/location_dto.dart';
+import 'package:flutter/material.dart';
 
 class LocationViewModel extends ChangeNotifier {
-  final LocationService _svc;
-  Position? _current;
+  LocationDto? _current;
   String? _error;
-  StreamSubscription<Position>? _sub;
 
-  LocationViewModel(this._svc) {
-    _startListening();
-  }
-
-  Position? get currentPosition => _current;
+  LocationDto? get current => _current;
   String? get error => _error;
 
-  void _startListening() {
-    _sub = _svc.getPositionStream().listen(
-      (pos) {
-        _current = pos;
-        _error = null;
-        notifyListeners();
-      },
-      onError: (err) {
-        _error = err.toString();
-        notifyListeners();
-      },
-    );
+  void onLocationData(dynamic data) {
+    if (data is LocationDto) {
+      _current = data;
+      _error = null;
+      notifyListeners();
+    }
   }
 
-  @override
-  void dispose() {
-    _sub?.cancel();
-    super.dispose();
+  void onError(dynamic error) {
+    _error = error.toString();
+    notifyListeners();
   }
 }

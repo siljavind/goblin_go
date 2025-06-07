@@ -46,15 +46,14 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Location service needed.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Location service needed.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Location service needed.</string>
     <key>UIBackgroundModes</key>
     <array>
-        <string>location</string>
+      <string>location</string>
     </array>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to count outdoor minutes.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location even when the app is closed to keep counting outdoor minutes.</string>
+
 </dict>
 </plist>

@@ -1,20 +1,66 @@
+import 'dart:isolate';
+import 'dart:ui';
+
+import 'package:background_locator_2/background_locator.dart';
+import 'package:background_locator_2/settings/android_settings.dart';
+import 'package:background_locator_2/settings/ios_settings.dart';
+import 'package:background_locator_2/settings/locator_settings.dart';
 import 'package:flutter/material.dart';
-import 'package:goblin_go/location_service.dart';
-import 'package:goblin_go/view_models/location_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+import 'location_callback_handler.dart';
+import 'view_models/location_viewmodel.dart';
 import 'view_models/settings_viewmodel.dart';
 import 'views/history_screen.dart';
 import 'views/home_screen.dart';
 import 'views/settings/settings_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await BackgroundLocator.initialize();
+
+  final port = ReceivePort();
+  IsolateNameServer.registerPortWithName(
+    port.sendPort,
+    LocationCallbackHandler.isolateName,
+  );
+
+  BackgroundLocator.registerLocationUpdate(
+    LocationCallbackHandler.callback,
+    initCallback: LocationCallbackHandler.initCallback,
+    disposeCallback: LocationCallbackHandler.disposeCallback,
+    autoStop: false,
+    iosSettings: IOSSettings(
+      accuracy: LocationAccuracy.NAVIGATION,
+      distanceFilter: 5,
+      stopWithTerminate: false,
+    ),
+    androidSettings: AndroidSettings(
+      accuracy: LocationAccuracy.NAVIGATION,
+      interval: 30,
+      distanceFilter: 5,
+      client: LocationClient.google,
+      androidNotificationSettings: AndroidNotificationSettings(
+        notificationChannelName: 'GoblinGo Location Updates',
+        notificationTitle: 'GoblinGo is running',
+        notificationMsg: 'Collecting location updates…',
+        notificationIcon: '',
+        //TODO: Check if necessary
+        notificationTapCallback: LocationCallbackHandler.notificationCallback,
+      ),
+    ),
+  );
+
   runApp(
     MultiProvider(
       providers: [
-        Provider(create: (_) => LocationService()),
         ChangeNotifierProvider(
-          create: (ctx) => LocationViewModel(ctx.read<LocationService>()),
+          create: (_) {
+            final vm = LocationViewModel();
+            port.listen(vm.onLocationData, onError: vm.onError);
+            return vm;
+          },
         ),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
       ],

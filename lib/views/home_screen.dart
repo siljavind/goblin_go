@@ -8,28 +8,24 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<LocationViewModel>();
+    final loc = vm.current;
 
-    Widget body;
     if (vm.error != null) {
-      body = Center(child: Text('Error: ${vm.error}'));
-    } else if (vm.currentPosition == null) {
-      body = const Center(child: CircularProgressIndicator());
-    } else {
-      final p = vm.currentPosition!;
-      body = Center(
-        child: Text(
-          'Lat: ${p.latitude.toStringAsFixed(6)}\n'
-          'Lng: ${p.longitude.toStringAsFixed(6)}\n'
-          'Time: ${p.timestamp?.toLocal().toIso8601String() ?? '-'}',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18),
-        ),
-      );
+      return Center(child: Text('Error: ${vm.error}'));
+    }
+    if (loc == null) {
+      return const Center(child: CircularProgressIndicator());
     }
 
     return Scaffold(
       appBar: AppBar(title: const Text('Live Location')),
-      body: body,
+      body: Text(
+        'Lat: ${loc.latitude.toStringAsFixed(6)}\n'
+        'Lng: ${loc.longitude.toStringAsFixed(6)}\n'
+        'Time: ${DateTime.parse(loc.time as String)}',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 18),
+      ),
     );
 
     return Scaffold(
