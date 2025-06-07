@@ -12,17 +12,17 @@ class BottomNavigation extends StatefulWidget {
 }
 
 class _BottomNavigationState extends State<BottomNavigation> {
-  int _currentPageIndex = 1;
+  int _selectedPageIndex = 1;
 
   final _pages = const [HistoryView(), HomeView(), SettingsView()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _currentPageIndex, children: _pages),
+      body: IndexedStack(index: _selectedPageIndex, children: _pages),
       bottomNavigationBar: NavigationBar(
-        selectedIndex: _currentPageIndex,
-        onDestinationSelected: (i) => setState(() => _currentPageIndex = i),
+        selectedIndex: _selectedPageIndex,
+        onDestinationSelected: (i) => setState(() => _selectedPageIndex = i),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.calendar_today),

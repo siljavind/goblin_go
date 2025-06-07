@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:goblin_go/services/background_location_driver.dart';
 
 //TODO: Figure out interface and implementation for location service.
-/// Abstraction layer so the rest of the app never talks to plugins directly.
 abstract interface class LocationService {
   Stream<Position> positionStream();
 }
@@ -23,36 +23,31 @@ class BackgroundLocationService implements LocationService {
 
     await service.configure(
       iosConfiguration: IosConfiguration(
-        autoStart: true,
-        onForeground: _onStart,
-        onBackground: _onIosBackground,
+        onForeground: backgroundServiceOnStart,
       ),
       androidConfiguration: AndroidConfiguration(
-        autoStart: true,
-        onStart: _onStart,
+        onStart: backgroundServiceOnStart,
         isForegroundMode: true,
-        foregroundServiceNotificationId: 888,
         foregroundServiceTypes: [AndroidForegroundType.location],
+        initialNotificationTitle: 'GoblinGo Location Service',
+        initialNotificationContent: 'Tracking your location..',
       ),
     );
 
-    //TODO: Use something other than Position?
-    service.on('location_event').listen((data) {
-      print('Location event received: $data');
-      if (data == null) return;
+    service.on('location_event').listen((event) {
+      if (event == null) return;
       _controller.add(
         Position(
-          latitude: data['lat'] as double,
-          longitude: data['long'] as double,
-          timestamp: DateTime.now(),
-          accuracy: 0.0,
-          altitude: 0.0,
-          altitudeAccuracy: 0.0,
-          speed: 0.0,
-          speedAccuracy: 0.0,
-          heading: 0.0,
-          headingAccuracy: 0.0,
-          isMocked: false,
+          latitude: (event['latitude'] ?? 0).toDouble(),
+          longitude: (event['longitude'] ?? 0).toDouble(),
+          timestamp: DateTime.fromMillisecondsSinceEpoch(event['timestamp']),
+          accuracy: (event['accuracy'] ?? 0).toDouble(),
+          altitude: (event['altitude'] ?? 0).toDouble(),
+          heading: (event['heading'] ?? 0).toDouble(),
+          speed: (event['speed'] ?? 0).toDouble(),
+          speedAccuracy: (event['speedAccuracy'] ?? 0).toDouble(),
+          altitudeAccuracy: (event['altitudeAccuracy'] ?? 0).toDouble(),
+          headingAccuracy: (event['headingAccuracy'] ?? 0).toDouble(),
         ),
       );
     });
@@ -60,39 +55,4 @@ class BackgroundLocationService implements LocationService {
 
   @override
   Stream<Position> positionStream() => _controller.stream;
-
-  static void _onStart(ServiceInstance service) {
-    _pushLocation(service);
-
-    final androidSettings = AndroidSettings(
-      distanceFilter: 1,
-      intervalDuration: const Duration(seconds: 30),
-    );
-
-    final appleSettings = AppleSettings(
-      distanceFilter: 1,
-      activityType: ActivityType.fitness,
-      pauseLocationUpdatesAutomatically: true,
-    );
-
-    Geolocator.getPositionStream(
-      locationSettings: instance is AndroidServiceInstance
-          ? androidSettings
-          : appleSettings,
-    ).listen((position) => _pushLocation(service, position));
-  }
-
-  static Future<void> _pushLocation(
-    ServiceInstance service, [
-    Position? position,
-  ]) async {
-    final pos = position ?? await Geolocator.getCurrentPosition();
-    service.invoke('location_event', {
-      'lat': pos.latitude,
-      'long': pos.longitude,
-    });
-  }
 }
-
-// TODO: Enable background fetch capability on xcode project if I get access to a Mac
-Future<bool> _onIosBackground(ServiceInstance _) async => true;

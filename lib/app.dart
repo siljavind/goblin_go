@@ -14,8 +14,7 @@ class GoblinGoApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) =>
-              LocationViewModel(BackgroundLocationService.instance)..init(),
+          create: (_) => LocationViewModel(BackgroundLocationService.instance),
         ),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
       ],

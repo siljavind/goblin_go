@@ -24,6 +24,10 @@ class HomeView extends StatelessWidget {
                   'Longitude ${pos.longitude.toStringAsFixed(5)}',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
+                Text(
+                  'Timestamp ${pos.timestamp.toLocal().toIso8601String()}',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
                 const SizedBox(height: 24),
                 Text(
                   'TODO: replace with outdoor-minutes progress',
