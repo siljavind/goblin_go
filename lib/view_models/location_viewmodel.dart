@@ -2,17 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import '../services/background_location_service.dart';
+import '../services/mapbox_service.dart';
 
 class LocationViewModel extends ChangeNotifier {
-  final LocationService _locationService;
-
-  LocationViewModel(this._locationService) {
-    _locationService.positionStream().listen((position) {
+  LocationViewModel(this._locationService, this._mapboxService) {
+    _locationService.positionStream().listen((position) async {
       _latest = position;
+      notifyListeners();
+
+      _isInside = null;
+      notifyListeners();
+      try {
+        final isInside = await _mapboxService.isInBuilding(
+          position.latitude,
+          position.longitude,
+        );
+        _isInside = isInside;
+      } catch (e) {
+        _isInside = null; // API error
+      }
       notifyListeners();
     });
   }
 
+  final LocationService _locationService;
+  final MapboxService _mapboxService;
+
   Position? _latest;
   Position? get latest => _latest;
+
+  bool? _isInside;
+  bool? get isInside => _isInside;
 }

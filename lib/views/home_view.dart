@@ -9,6 +9,16 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Position? pos = context.watch<LocationViewModel>().latest;
+    final bool? isInside = context.watch<LocationViewModel>().isInside;
+
+    String statusText;
+    if (isInside == null) {
+      statusText = 'Checking location...';
+    } else if (isInside) {
+      statusText = 'You are inside the building.';
+    } else {
+      statusText = 'You are outside the building.';
+    }
 
     return Center(
       child: pos == null
@@ -29,10 +39,7 @@ class HomeView extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 24),
-                Text(
-                  'TODO: replace with outdoor-minutes progress',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
+                Text(statusText, style: Theme.of(context).textTheme.bodyMedium),
               ],
             ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:goblin_go/services/background_location_service.dart';
+import 'package:goblin_go/services/mapbox_service.dart';
 import 'package:goblin_go/ui/bottom_navigation.dart';
 import 'package:goblin_go/view_models/location_viewmodel.dart';
 import 'package:goblin_go/view_models/settings_viewmodel.dart';
@@ -14,7 +15,10 @@ class GoblinGoApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => LocationViewModel(BackgroundLocationService.instance),
+          create: (_) => LocationViewModel(
+            BackgroundLocationService.instance,
+            MapboxService.instance,
+          ),
         ),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
       ],
