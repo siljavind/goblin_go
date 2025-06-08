@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../view_models/settings_viewmodel.dart';
-import '../settings/setting_card.dart';
+import 'setting_card.dart';
+import 'settings_viewmodel.dart';
 
 // TODO: Rework layout
 // TODO: Slider label elsewhere

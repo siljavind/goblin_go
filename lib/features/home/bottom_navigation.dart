@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../views/history_view.dart';
-import '../views/home_view.dart';
-import '../views/settings/settings_view.dart';
+import '../history/history_view.dart';
+import '../settings/settings_view.dart';
+import 'home_view.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});

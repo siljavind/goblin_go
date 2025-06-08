@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 class MapboxService {
   MapboxService._();
   static final MapboxService instance = MapboxService._();
-  //TODO: Move token to local settings and Github Secrets (after refresh)
   final accessToken = dotenv.env['MAPBOX_TOKEN'];
 
   Future<bool> isInBuilding({
@@ -18,6 +17,7 @@ class MapboxService {
       '$longitude,$latitude.json?radius=1&limit=1&dedupe&layers=building&access_token=$accessToken',
     );
 
+    //TODO: Data is only shown in UI if a breakpoint is applied and hit
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

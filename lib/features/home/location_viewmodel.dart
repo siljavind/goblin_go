@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-import '../services/background_location_service.dart';
-import '../services/mapbox_service.dart';
+import '../../services/location_service.dart';
+import '../../services/mapbox_service.dart';
 
 class LocationViewModel extends ChangeNotifier {
   LocationViewModel(this._locationService, this._mapboxService) {

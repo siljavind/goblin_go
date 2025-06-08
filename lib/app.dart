@@ -1,15 +1,18 @@
+// lib/app.dart
 import 'package:flutter/material.dart';
-import 'package:goblin_go/services/background_location_service.dart';
+import 'package:goblin_go/features/home/location_viewmodel.dart';
+import 'package:goblin_go/features/settings/settings_viewmodel.dart';
+import 'package:goblin_go/services/location_service.dart';
 import 'package:goblin_go/services/mapbox_service.dart';
-import 'package:goblin_go/ui/bottom_navigation.dart';
-import 'package:goblin_go/view_models/location_viewmodel.dart';
-import 'package:goblin_go/view_models/settings_viewmodel.dart';
 import 'package:provider/provider.dart';
+
+import 'app_shell.dart';
+import 'features/onboarding/onboarding_viewmodel.dart';
 
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
 
-  //TODO Revisit ChangeNotifierProvider usage
+  //TODO: Reinstate themeMode from settingsViewModel
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -21,6 +24,7 @@ class GoblinGoApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+        ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
       ],
       child: MaterialApp(
         title: 'GoblinGo',
@@ -33,8 +37,9 @@ class GoblinGoApp extends StatelessWidget {
           brightness: Brightness.dark,
           useMaterial3: true,
           colorSchemeSeed: Colors.green,
+          scaffoldBackgroundColor: Colors.pink,
         ),
-        home: const BottomNavigation(), //TODO: Change to MainScaffold
+        home: const AppShell(), //TODO: Change to MainScaffold
       ),
     );
   }
