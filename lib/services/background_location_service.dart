@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:goblin_go/services/background_location_driver.dart';
 
 //TODO: Figure out interface and implementation for location service.
 abstract interface class LocationService {
@@ -22,11 +21,9 @@ class BackgroundLocationService implements LocationService {
     final service = FlutterBackgroundService();
 
     await service.configure(
-      iosConfiguration: IosConfiguration(
-        onForeground: backgroundServiceOnStart,
-      ),
+      iosConfiguration: IosConfiguration(onForeground: onStart),
       androidConfiguration: AndroidConfiguration(
-        onStart: backgroundServiceOnStart,
+        onStart: onStart,
         isForegroundMode: true,
         foregroundServiceTypes: [AndroidForegroundType.location],
         initialNotificationTitle: 'GoblinGo Location Service',
@@ -56,3 +53,36 @@ class BackgroundLocationService implements LocationService {
   @override
   Stream<Position> positionStream() => _controller.stream;
 }
+
+@pragma('vm:entry-point')
+Future<void> onStart(ServiceInstance service) async {
+  Geolocator.getPositionStream(
+    locationSettings: service is AndroidServiceInstance
+        ? androidSettings
+        : appleSettings,
+  ).listen((pos) {
+    service.invoke('location_event', {
+      'latitude': pos.latitude,
+      'longitude': pos.longitude,
+      'timestamp': pos.timestamp?.millisecondsSinceEpoch,
+      'accuracy': pos.accuracy,
+      'altitude': pos.altitude,
+      'heading': pos.heading,
+      'speed': pos.speed,
+      'speedAccuracy': pos.speedAccuracy,
+      'altitudeAccuracy': pos.altitudeAccuracy,
+      'headingAccuracy': pos.headingAccuracy,
+    });
+  });
+}
+
+final androidSettings = AndroidSettings(
+  distanceFilter: 0,
+  intervalDuration: const Duration(seconds: 60),
+);
+
+final appleSettings = AppleSettings(
+  distanceFilter: 1,
+  activityType: ActivityType.fitness,
+  pauseLocationUpdatesAutomatically: true,
+);
