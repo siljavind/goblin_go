@@ -14,8 +14,8 @@ class LocationViewModel extends ChangeNotifier {
       notifyListeners();
       try {
         final isInside = await _mapboxService.isInBuilding(
-          position.latitude,
-          position.longitude,
+          longitude: position.longitude,
+          latitude: position.latitude,
         );
         _isInside = isInside;
       } catch (e) {

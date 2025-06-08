@@ -17,6 +17,10 @@ jobs:
         with:
           channel: stable
 
+      - name: Create .env file with Mapbox token
+        run: |
+          echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
+
       - name: Install dependencies
         run: flutter pub get
 
@@ -40,6 +44,10 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
+
+      - name: Create .env file with Mapbox token
+        run: |
+          echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
 
       - name: Install dependencies
         run: flutter pub get
