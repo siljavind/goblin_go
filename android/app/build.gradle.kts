@@ -48,7 +48,7 @@ android {
             keyPassword = keystoreProperties["keyPassword"] as String
         }
     }
-
+// TODO: Go back to debug build
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false

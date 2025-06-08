@@ -15,9 +15,11 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
+//TODO Refactor when all MVP components are done
 class _AppShellState extends State<AppShell> {
   bool _dialogShown = false;
 
+  //TODO : Refactor to use a more robust state management solution
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

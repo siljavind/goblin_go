@@ -37,7 +37,6 @@ class GoblinGoApp extends StatelessWidget {
           brightness: Brightness.dark,
           useMaterial3: true,
           colorSchemeSeed: Colors.green,
-          scaffoldBackgroundColor: Colors.pink,
         ),
         home: const AppShell(), //TODO: Change to MainScaffold
       ),
