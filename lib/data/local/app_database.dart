@@ -15,6 +15,7 @@ class OutdoorSessions extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get startTime => dateTime()();
   DateTimeColumn get endTime => dateTime()();
+  IntColumn get duration => integer()();
 }
 
 /// Table for storing day summary data.
@@ -28,30 +29,24 @@ class DaySummaries extends Table {
   Set<Column> get primaryKey => {dateId};
 }
 
-abstract class TotalXpView extends View {
-  DaySummaries get daySummaries;
-
-  Expression<int> get totalXp => daySummaries.totalXp.sum();
-
-  @override
-  Query as() => select([totalXp]);
-}
-
 @DriftDatabase(
   tables: [OutdoorSessions, DaySummaries],
   daos: [OutdoorSessionsDao, DaySummariesDao],
-  views: [TotalXpView],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
+    onUpgrade: (m, from, to) async {
+      if (from == 1) {
+        await m.addColumn(outdoorSessions, outdoorSessions.duration);
+      }
+    },
     onCreate: (m) => m.createAll(),
-    // TODO: If ever changing schemaVersion, add onUpgrade logic
   );
 }
 

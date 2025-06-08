@@ -44,8 +44,19 @@ class $OutdoorSessionsTable extends OutdoorSessions
     type: DriftSqlType.dateTime,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _durationMeta = const VerificationMeta(
+    'duration',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, startTime, endTime];
+  late final GeneratedColumn<int> duration = GeneratedColumn<int>(
+    'duration',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, startTime, endTime, duration];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -77,6 +88,14 @@ class $OutdoorSessionsTable extends OutdoorSessions
     } else if (isInserting) {
       context.missing(_endTimeMeta);
     }
+    if (data.containsKey('duration')) {
+      context.handle(
+        _durationMeta,
+        duration.isAcceptableOrUnknown(data['duration']!, _durationMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_durationMeta);
+    }
     return context;
   }
 
@@ -98,6 +117,10 @@ class $OutdoorSessionsTable extends OutdoorSessions
         DriftSqlType.dateTime,
         data['${effectivePrefix}end_time'],
       )!,
+      duration: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}duration'],
+      )!,
     );
   }
 
@@ -111,10 +134,12 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
   final int id;
   final DateTime startTime;
   final DateTime endTime;
+  final int duration;
   const OutdoorSession({
     required this.id,
     required this.startTime,
     required this.endTime,
+    required this.duration,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -122,6 +147,7 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
     map['id'] = Variable<int>(id);
     map['start_time'] = Variable<DateTime>(startTime);
     map['end_time'] = Variable<DateTime>(endTime);
+    map['duration'] = Variable<int>(duration);
     return map;
   }
 
@@ -130,6 +156,7 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
       id: Value(id),
       startTime: Value(startTime),
       endTime: Value(endTime),
+      duration: Value(duration),
     );
   }
 
@@ -142,6 +169,7 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
       id: serializer.fromJson<int>(json['id']),
       startTime: serializer.fromJson<DateTime>(json['startTime']),
       endTime: serializer.fromJson<DateTime>(json['endTime']),
+      duration: serializer.fromJson<int>(json['duration']),
     );
   }
   @override
@@ -151,20 +179,27 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
       'id': serializer.toJson<int>(id),
       'startTime': serializer.toJson<DateTime>(startTime),
       'endTime': serializer.toJson<DateTime>(endTime),
+      'duration': serializer.toJson<int>(duration),
     };
   }
 
-  OutdoorSession copyWith({int? id, DateTime? startTime, DateTime? endTime}) =>
-      OutdoorSession(
-        id: id ?? this.id,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
-      );
+  OutdoorSession copyWith({
+    int? id,
+    DateTime? startTime,
+    DateTime? endTime,
+    int? duration,
+  }) => OutdoorSession(
+    id: id ?? this.id,
+    startTime: startTime ?? this.startTime,
+    endTime: endTime ?? this.endTime,
+    duration: duration ?? this.duration,
+  );
   OutdoorSession copyWithCompanion(OutdoorSessionsCompanion data) {
     return OutdoorSession(
       id: data.id.present ? data.id.value : this.id,
       startTime: data.startTime.present ? data.startTime.value : this.startTime,
       endTime: data.endTime.present ? data.endTime.value : this.endTime,
+      duration: data.duration.present ? data.duration.value : this.duration,
     );
   }
 
@@ -173,46 +208,54 @@ class OutdoorSession extends DataClass implements Insertable<OutdoorSession> {
     return (StringBuffer('OutdoorSession(')
           ..write('id: $id, ')
           ..write('startTime: $startTime, ')
-          ..write('endTime: $endTime')
+          ..write('endTime: $endTime, ')
+          ..write('duration: $duration')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, startTime, endTime);
+  int get hashCode => Object.hash(id, startTime, endTime, duration);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is OutdoorSession &&
           other.id == this.id &&
           other.startTime == this.startTime &&
-          other.endTime == this.endTime);
+          other.endTime == this.endTime &&
+          other.duration == this.duration);
 }
 
 class OutdoorSessionsCompanion extends UpdateCompanion<OutdoorSession> {
   final Value<int> id;
   final Value<DateTime> startTime;
   final Value<DateTime> endTime;
+  final Value<int> duration;
   const OutdoorSessionsCompanion({
     this.id = const Value.absent(),
     this.startTime = const Value.absent(),
     this.endTime = const Value.absent(),
+    this.duration = const Value.absent(),
   });
   OutdoorSessionsCompanion.insert({
     this.id = const Value.absent(),
     required DateTime startTime,
     required DateTime endTime,
+    required int duration,
   }) : startTime = Value(startTime),
-       endTime = Value(endTime);
+       endTime = Value(endTime),
+       duration = Value(duration);
   static Insertable<OutdoorSession> custom({
     Expression<int>? id,
     Expression<DateTime>? startTime,
     Expression<DateTime>? endTime,
+    Expression<int>? duration,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (startTime != null) 'start_time': startTime,
       if (endTime != null) 'end_time': endTime,
+      if (duration != null) 'duration': duration,
     });
   }
 
@@ -220,11 +263,13 @@ class OutdoorSessionsCompanion extends UpdateCompanion<OutdoorSession> {
     Value<int>? id,
     Value<DateTime>? startTime,
     Value<DateTime>? endTime,
+    Value<int>? duration,
   }) {
     return OutdoorSessionsCompanion(
       id: id ?? this.id,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
+      duration: duration ?? this.duration,
     );
   }
 
@@ -240,6 +285,9 @@ class OutdoorSessionsCompanion extends UpdateCompanion<OutdoorSession> {
     if (endTime.present) {
       map['end_time'] = Variable<DateTime>(endTime.value);
     }
+    if (duration.present) {
+      map['duration'] = Variable<int>(duration.value);
+    }
     return map;
   }
 
@@ -248,7 +296,8 @@ class OutdoorSessionsCompanion extends UpdateCompanion<OutdoorSession> {
     return (StringBuffer('OutdoorSessionsCompanion(')
           ..write('id: $id, ')
           ..write('startTime: $startTime, ')
-          ..write('endTime: $endTime')
+          ..write('endTime: $endTime, ')
+          ..write('duration: $duration')
           ..write(')'))
         .toString();
   }
@@ -584,12 +633,14 @@ typedef $$OutdoorSessionsTableCreateCompanionBuilder =
       Value<int> id,
       required DateTime startTime,
       required DateTime endTime,
+      required int duration,
     });
 typedef $$OutdoorSessionsTableUpdateCompanionBuilder =
     OutdoorSessionsCompanion Function({
       Value<int> id,
       Value<DateTime> startTime,
       Value<DateTime> endTime,
+      Value<int> duration,
     });
 
 class $$OutdoorSessionsTableFilterComposer
@@ -613,6 +664,11 @@ class $$OutdoorSessionsTableFilterComposer
 
   ColumnFilters<DateTime> get endTime => $composableBuilder(
     column: $table.endTime,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get duration => $composableBuilder(
+    column: $table.duration,
     builder: (column) => ColumnFilters(column),
   );
 }
@@ -640,6 +696,11 @@ class $$OutdoorSessionsTableOrderingComposer
     column: $table.endTime,
     builder: (column) => ColumnOrderings(column),
   );
+
+  ColumnOrderings<int> get duration => $composableBuilder(
+    column: $table.duration,
+    builder: (column) => ColumnOrderings(column),
+  );
 }
 
 class $$OutdoorSessionsTableAnnotationComposer
@@ -659,6 +720,9 @@ class $$OutdoorSessionsTableAnnotationComposer
 
   GeneratedColumn<DateTime> get endTime =>
       $composableBuilder(column: $table.endTime, builder: (column) => column);
+
+  GeneratedColumn<int> get duration =>
+      $composableBuilder(column: $table.duration, builder: (column) => column);
 }
 
 class $$OutdoorSessionsTableTableManager
@@ -701,20 +765,24 @@ class $$OutdoorSessionsTableTableManager
                 Value<int> id = const Value.absent(),
                 Value<DateTime> startTime = const Value.absent(),
                 Value<DateTime> endTime = const Value.absent(),
+                Value<int> duration = const Value.absent(),
               }) => OutdoorSessionsCompanion(
                 id: id,
                 startTime: startTime,
                 endTime: endTime,
+                duration: duration,
               ),
           createCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
                 required DateTime startTime,
                 required DateTime endTime,
+                required int duration,
               }) => OutdoorSessionsCompanion.insert(
                 id: id,
                 startTime: startTime,
                 endTime: endTime,
+                duration: duration,
               ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

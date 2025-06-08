@@ -13,7 +13,7 @@ class LocationViewModel extends ChangeNotifier {
       _isInside = null;
       notifyListeners();
       try {
-        final isInside = await _mapboxService.isInBuilding(
+        final isInside = await _mapboxService.isPositionOutside(
           longitude: position.longitude,
           latitude: position.latitude,
         );

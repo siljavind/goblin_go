@@ -16,12 +16,12 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase>
   /// Get a summary by its dateId.
   Future<DaySummary?> getByDateId(int dateId) => (select(
     daySummaries,
-  )..where((tbl) => tbl.date.equals(dateId))).getSingleOrNull();
+  )..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull();
 
   /// Watch (stream) the summary for a given dateId.
   Stream<DaySummary?> watchByDateId(int dateId) => (select(
     daySummaries,
-  )..where((tbl) => tbl.date.equals(dateId))).watchSingleOrNull();
+  )..where((tbl) => tbl.dateId.equals(dateId))).watchSingleOrNull();
 
   /// Watch (stream) total XP (across all days).
   Stream<int> watchTotalXp() => select(
@@ -30,7 +30,7 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase>
 
   /// Watch (stream) total minutes for a given day.
   Stream<int> watchTotalMinutesForDay(int dateId) =>
-      (select(daySummaries)..where((tbl) => tbl.date.equals(dateId)))
+      (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId)))
           .watchSingleOrNull()
           .map((summary) => summary?.totalMinutes ?? 0);
 }

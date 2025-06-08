@@ -8,7 +8,7 @@ class MapboxService {
   static final MapboxService instance = MapboxService._();
   final accessToken = dotenv.env['MAPBOX_TOKEN'];
 
-  Future<bool> isInBuilding({
+  Future<bool> isPositionOutside({
     required double longitude,
     required double latitude,
   }) async {
@@ -22,7 +22,7 @@ class MapboxService {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final features = data['features'] as List?;
-      return features != null && features.isNotEmpty;
+      return features!.isEmpty;
     } else {
       throw Exception('Failed to fetch data from Mapbox API');
     }

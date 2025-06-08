@@ -18,7 +18,7 @@ class SettingsViewModel extends ChangeNotifier {
     _loadFromPrefs();
   }
 
-  //TODO: Change sets into delegates or something?
+  //TODO: Reset progress for the day if user changes daily goal
   Future<void> setDailyGoal(int goal) async {
     if (goal == _dailyGoal) return;
 
