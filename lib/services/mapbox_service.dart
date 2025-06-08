@@ -7,7 +7,8 @@ class MapboxService {
   MapboxService._();
   static final MapboxService instance = MapboxService._();
   //TODO: Move token to local settings and Github Secrets (after refresh)
-  final accessToken = dotenv.env['MAPBOX_TOKEN'];
+  final accessToken = dotenv.env['MAPBOX_TOKEN'] ??
+      (throw Exception('MAPBOX_TOKEN is missing. Please set it in the environment variables.'));
 
   Future<bool> isInBuilding({
     required double longitude,
