@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../view_models/settings_viewmodel.dart';
-import '../settings/setting_card.dart';
+import 'setting_card.dart';
+import 'settings_viewmodel.dart';
 
 // TODO: Rework layout
-// Slider label elsewhere
-// Saving username
-// Reset progress for the day if user changes daily goal?
+// TODO: Slider label elsewhere
+// TODO: Saving username
+// TODO: Reset progress for the day if user changes daily goal?
 // TODO: Add tests
-class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+// TODO: Refactor if there's time
+class SettingsView extends StatelessWidget {
+  const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {

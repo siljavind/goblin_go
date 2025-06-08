@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//TODO: Let user set name
 class SettingsViewModel extends ChangeNotifier {
   static const _keyDailyGoal = 'daily_goal';
   static const _keyThemeMode = 'theme_mode';
