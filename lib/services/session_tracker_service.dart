@@ -155,9 +155,6 @@ class SessionTrackerService {
     _positionSubscription?.resume();
   }
 
-  bool _isValid(Position pos) =>
-      pos.accuracy < 50 && pos.speed <= 7; // = ~25 km/h: running/biking max
-
   int _dateToDateId(DateTime date) =>
       date.year * 10000 + date.month * 100 + date.day; // YYYYMMDD format
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goblin_go/data/local/day_summaries_dao.dart';
 import 'package:goblin_go/services/settings_service.dart';
+import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 import 'home_viewmodel.dart';
@@ -64,10 +65,11 @@ class _ProgressCard extends StatelessWidget {
   final double progress;
   final ColorScheme cs;
 
+  //TODO Use padded card widget
   @override
   Widget build(BuildContext context) => Container(
     width: double.infinity,
-    height: 180,
+    height: 300,
     decoration: BoxDecoration(
       color: cs.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(16),
@@ -78,13 +80,24 @@ class _ProgressCard extends StatelessWidget {
       children: [
         Text('Daily Progress', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
-        LinearProgressIndicator(
-          value: progress,
-          minHeight: 12,
-          borderRadius: BorderRadius.circular(8),
+        SizedBox(
+          height: 180,
+          width: 180,
+          //TODO Use a custom progress indicator
+          child: LiquidCircularProgressIndicator(
+            value: progress,
+            valueColor: AlwaysStoppedAnimation(cs.primary),
+            backgroundColor: cs.surfaceContainerHighest,
+            borderColor: cs.primary,
+            borderWidth: 4.0,
+            direction: Axis.vertical,
+            center: Text(
+              '${(progress * 100).toInt()} %',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
+          ),
         ),
-        const SizedBox(height: 12),
-        Text('${(progress * 100).toInt()} % complete'),
+        const SizedBox(height: 8),
       ],
     ),
   );
