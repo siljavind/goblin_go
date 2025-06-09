@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService {
-  SettingsService();
+  static final SettingsService _instance = SettingsService._internal();
+  factory SettingsService() => _instance;
+  SettingsService._internal();
 
   // Preference keys
   static const String _keyDailyGoal = 'daily_goal';
   static const String _keyThemeMode = 'theme_mode';
   static const String _keyUsername = 'username';
 
-  // Default values
   static const int defaultDailyGoal = 20;
   static const ThemeMode defaultThemeMode = ThemeMode.system;
   static const String defaultUsername = '';
@@ -23,13 +24,11 @@ class SettingsService {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-  // --- Daily Goal ---
   int get dailyGoal => _prefs?.getInt(_keyDailyGoal) ?? defaultDailyGoal;
 
   //TODO: Reset progress for the day if user changes daily goal
   Future<void> setDailyGoal(int value) async => await _prefs?.setInt(_keyDailyGoal, value);
 
-  // --- Theme Mode ---
   ThemeMode get themeMode {
     final index = _prefs?.getInt(_keyThemeMode);
     return index != null ? ThemeMode.values[index] : defaultThemeMode;

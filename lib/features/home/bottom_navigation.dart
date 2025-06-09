@@ -11,6 +11,7 @@ class BottomNavigation extends StatefulWidget {
   State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
+//TODO: Add ability to swipe between pages
 class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedPageIndex = 1;
 
@@ -24,10 +25,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         selectedIndex: _selectedPageIndex,
         onDestinationSelected: (i) => setState(() => _selectedPageIndex = i),
         destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.calendar_today),
-            label: 'History',
-          ),
+          NavigationDestination(icon: Icon(Icons.calendar_today), label: 'History'),
           NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
           NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
         ],

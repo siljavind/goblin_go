@@ -4,7 +4,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class MapboxService {
-  MapboxService();
+  static final MapboxService _instance = MapboxService._internal();
+  factory MapboxService() => _instance;
+  MapboxService._internal();
 
   final accessToken = dotenv.env['MAPBOX_TOKEN'];
 

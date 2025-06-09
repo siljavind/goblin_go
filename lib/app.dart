@@ -26,7 +26,10 @@ class GoblinGoApp extends StatelessWidget {
         Provider(create: (c) => DaySummariesDao(c.read<AppDatabase>())),
         Provider(create: (c) => OutdoorSessionsDao(c.read<AppDatabase>())),
         Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
-        ChangeNotifierProvider(create: (c) => SettingsViewModel(c.read<SettingsService>())),
+        ChangeNotifierProvider(
+          create: (c) => SettingsViewModel(c.read<SettingsService>()),
+          lazy: false,
+        ),
         ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider<BackgroundService>(create: (_) => BackgroundService()),
         Provider<MapboxService>(create: (_) => MapboxService()),

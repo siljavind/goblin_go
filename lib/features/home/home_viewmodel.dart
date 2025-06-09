@@ -6,6 +6,7 @@ import 'package:goblin_go/data/local/day_summaries_dao.dart';
 import '../../services/settings_service.dart';
 
 class HomeViewModel with ChangeNotifier {
+  //TODO: Check this constructor use
   HomeViewModel(this._dao, this._settings) {
     _listen();
   }

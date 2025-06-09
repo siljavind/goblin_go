@@ -4,8 +4,6 @@ import 'package:goblin_go/services/settings_service.dart';
 class SettingsViewModel extends ChangeNotifier {
   final SettingsService _settingsService;
 
-  //final SettingsService _settings = SettingsService();
-
   int _dailyGoal = SettingsService.defaultDailyGoal;
   ThemeMode _themeMode = SettingsService.defaultThemeMode;
   String _username = SettingsService.defaultUsername;
@@ -19,9 +17,13 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   Future<void> _load() async {
+    print('Loading settings...');
     _dailyGoal = _settingsService.dailyGoal;
+    print('Daily goal: $_dailyGoal');
     _themeMode = _settingsService.themeMode;
+    print('Theme mode: $_themeMode');
     _username = _settingsService.username;
+    print('Username: $_username');
     notifyListeners();
   }
 
@@ -30,6 +32,7 @@ class SettingsViewModel extends ChangeNotifier {
     _dailyGoal = goal;
     notifyListeners();
     await _settingsService.setDailyGoal(goal);
+    print(_dailyGoal);
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {

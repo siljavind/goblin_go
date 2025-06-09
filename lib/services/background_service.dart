@@ -6,7 +6,9 @@ import 'package:geolocator/geolocator.dart';
 import 'background_location_entrypoint.dart' as loc;
 
 class BackgroundService {
-  BackgroundService();
+  static final BackgroundService _instance = BackgroundService._internal();
+  factory BackgroundService() => _instance;
+  BackgroundService._internal();
 
   final _controller = StreamController<Position>.broadcast();
   Stream<Position> positionStream() => _controller.stream;

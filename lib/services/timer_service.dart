@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 
 class TimerService {
-  TimerService();
+  static final TimerService _instance = TimerService._internal();
+  factory TimerService() => _instance;
+  TimerService._internal();
 
   Timer? _timer;
 
