@@ -54,7 +54,9 @@ class _AppShellState extends State<AppShell> {
 
     if (onboarding.state != OnboardingState.granted && onboarding.state != OnboardingState.error) {
       // Show loading while waiting for permission flow to finish
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ); //TODO: Replace with placeholder of actual app
     }
 
     return const BottomNavigation();

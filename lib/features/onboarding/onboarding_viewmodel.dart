@@ -54,9 +54,7 @@ class OnboardingViewModel extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   /// Opens the app settings for the user to manually change permissions.
-  Future<void> openSettings() async {
-    await openAppSettings();
-  }
+  Future<void> openSettings() async => await openAppSettings();
 
   /// Sets the onboarding state and notifies listeners if the state changes.
   ///

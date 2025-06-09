@@ -32,8 +32,7 @@ class OnboardingContent extends StatelessWidget {
         return OnboardingStep(
           icon: Icons.directions_walk,
           title: "Give me superpowers!",
-          description:
-              "I need \"Always\" location access to count all your outdoor quests.",
+          description: "I need \"Always\" location access to count all your outdoor quests.",
           buttonLabel: "Allow access all the time",
           onButtonPressed: viewModel.requestAlways,
         );
@@ -42,14 +41,13 @@ class OnboardingContent extends StatelessWidget {
         return OnboardingStep(
           icon: Icons.lock,
           title: "Permission denied",
-          description:
-              "Location permission denied. Please \"Allow all the time\" in settings.",
+          description: "Location permission denied. Please \"Allow all the time\" in settings.",
           buttonLabel: "Open Settings",
           onButtonPressed: viewModel.openSettings,
           error: true,
         );
 
-      //TODO Check this
+      //TODO Drop use of this and just go to the app
       case OnboardingState.granted:
         return const SizedBox.shrink();
     }

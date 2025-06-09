@@ -21,12 +21,12 @@ class GoblinGoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SettingsViewModel()),
+        Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
+        ChangeNotifierProvider(create: (c) => SettingsViewModel(c.read<SettingsService>())),
         ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider(create: (_) => AppDatabase(), dispose: (_, db) => db.close()),
         Provider(create: (c) => DaySummariesDao(c.read<AppDatabase>())),
         Provider(create: (c) => OutdoorSessionsDao(c.read<AppDatabase>())),
-        Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
         Provider<BackgroundService>(create: (_) => BackgroundService()),
         Provider<MapboxService>(create: (_) => MapboxService()),
         Provider<TimerService>(create: (_) => TimerService()),
@@ -48,20 +48,22 @@ class GoblinGoApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MaterialApp(
-        title: 'GoblinGo',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          useMaterial3: true,
-          colorSchemeSeed: Colors.green,
+      child: Consumer<SettingsViewModel>(
+        builder: (_, vm, _) => MaterialApp(
+          title: 'GoblinGo',
+          theme: ThemeData(
+            brightness: Brightness.light,
+            useMaterial3: true,
+            colorSchemeSeed: Colors.green,
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            useMaterial3: true,
+            colorSchemeSeed: Colors.green,
+          ),
+          themeMode: vm.themeMode,
+          home: const AppShell(),
         ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: true,
-          colorSchemeSeed: Colors.green,
-        ),
-        themeMode: SettingsService().themeMode,
-        home: const AppShell(),
       ),
     );
   }

@@ -21,15 +21,10 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
       (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).watchSingleOrNull();
 
   /// Watch (stream) total XP (across all days).
-  Stream<int> watchTotalXp() => customSelect(
-    'SELECT COALESCE(SUM(total_xp), 0) AS xp FROM day_summaries',
-    readsFrom: {daySummaries},
-  ).watchSingle().map((row) => row.read<int>('xp'));
+  Stream<int> watchTotalXp() =>
+      select(daySummaries).watch().map((rows) => rows.fold<int>(0, (sum, r) => sum + r.totalXp));
 
   /// Watch (stream) total minutes for a given day.
-  Stream<int> watchTotalMinutesForDay(int dateId) => customSelect(
-    'SELECT COALESCE(total_minutes, 0) AS minutes FROM day_summaries WHERE date_id = ?',
-    variables: [Variable<int>(dateId)],
-    readsFrom: {daySummaries},
-  ).watchSingle().map((row) => row.read<int>('minutes'));
+  Stream<int> watchTotalMinutesForDay(int dateId) =>
+      watchByDateId(dateId).map((row) => row?.totalMinutes ?? 0);
 }
