@@ -10,7 +10,7 @@ import 'onboarding_state.dart';
 /// location permissions during the onboarding process. It uses the
 /// [PermissionHandler] package to interact with the device's permission system.
 class OnboardingViewModel extends ChangeNotifier with WidgetsBindingObserver {
-  OnboardingState _state = OnboardingState.awaitingInUse;
+  OnboardingState _state = OnboardingState.loading;
 
   /// Getter for the current onboarding permission state.
   OnboardingState get state => _state;

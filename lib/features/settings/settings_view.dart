@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'setting_card.dart';
+import '../shared/padded_card.dart';
 import 'settings_viewmodel.dart';
 
 // TODO: Rework layout
@@ -18,11 +18,7 @@ class SettingsView extends StatelessWidget {
     final vm = context.watch<SettingsViewModel>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        centerTitle: true,
-        elevation: 2,
-      ),
+      appBar: AppBar(title: const Text('Settings'), centerTitle: true, elevation: 2),
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
@@ -32,19 +28,14 @@ class SettingsView extends StatelessWidget {
                     children: [
                       const Text(
                         'What do you want to be called?',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 8),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Name',
                           prefixIcon: const Icon(Icons.person),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
                         ),
                         onSubmitted: (value) {
                           final name = value.trim();
@@ -60,10 +51,7 @@ class SettingsView extends StatelessWidget {
                     children: [
                       Text(
                         'Hello ${vm.username}!',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       IconButton(
                         icon: const Icon(Icons.edit),
@@ -99,10 +87,7 @@ class SettingsView extends StatelessWidget {
                 Center(
                   child: Text(
                     '${vm.dailyGoal} minutes',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                   ),
                 ),
               ],

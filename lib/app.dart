@@ -17,16 +17,17 @@ import 'features/onboarding/onboarding_viewmodel.dart';
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
 
+  //TODO
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
-        ChangeNotifierProvider(create: (c) => SettingsViewModel(c.read<SettingsService>())),
-        ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider(create: (_) => AppDatabase(), dispose: (_, db) => db.close()),
         Provider(create: (c) => DaySummariesDao(c.read<AppDatabase>())),
         Provider(create: (c) => OutdoorSessionsDao(c.read<AppDatabase>())),
+        Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
+        ChangeNotifierProvider(create: (c) => SettingsViewModel(c.read<SettingsService>())),
+        ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider<BackgroundService>(create: (_) => BackgroundService()),
         Provider<MapboxService>(create: (_) => MapboxService()),
         Provider<TimerService>(create: (_) => TimerService()),

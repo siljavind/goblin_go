@@ -47,8 +47,8 @@ class OnboardingContent extends StatelessWidget {
           error: true,
         );
 
-      //TODO Drop use of this and just go to the app
       case OnboardingState.granted:
+      case OnboardingState.loading:
         return const SizedBox.shrink();
     }
   }
