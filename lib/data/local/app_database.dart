@@ -33,6 +33,8 @@ class DaySummaries extends Table {
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
+  AppDatabase.forTesting(super.e);
+
   @override
   int get schemaVersion => 2;
 
@@ -47,7 +49,6 @@ class AppDatabase extends _$AppDatabase {
   );
 }
 
-//TODO: Necessary?
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();

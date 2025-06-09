@@ -22,6 +22,8 @@ class SessionTrackerService {
   DateTime? _sessionStart;
   bool _isOutside = false;
   bool _wasOutside = false;
+  int _speedyGonzalesStrike = 0;
+  Position? _speedyPosition;
 
   SessionTrackerService({
     required this.backgroundService,
@@ -34,20 +36,28 @@ class SessionTrackerService {
   void startTracking() =>
       _positionSubscription = backgroundService.positionStream().listen(_handlePosition);
 
-  //TODO: Handle edge cases where position becomes invalid while tracking (eg. when user is on a train or on a bus..)
   Future<void> _handlePosition(Position pos) async {
-    if (!_isValid(pos)) return;
+    // Handle cases where the user is moving too fast
+    if (pos.speed >= 7) {
+      if (++_speedyGonzalesStrike == 1) _speedyPosition = pos;
+      if (_speedyGonzalesStrike >= 3) {
+        await _endSessionIfActive();
+        return;
+      }
+    } else {
+      _speedyGonzalesStrike = 0;
+    }
 
     _isOutside = await mapboxService.isPositionOutside(
       longitude: pos.longitude,
       latitude: pos.latitude,
     );
 
-    //Transition: inside -> outside
+    // Transition: inside -> outside
     if (!_wasOutside && _isOutside) {
       _sessionStart = pos.timestamp;
     }
-    //Transition: outside -> inside
+    // Transition: outside -> inside
     else if (_wasOutside && !_isOutside && _sessionStart != null) {
       await _saveSession(_sessionStart!, pos.timestamp);
       _sessionStart = null;
@@ -71,25 +81,35 @@ class SessionTrackerService {
     }
   }
 
+  Future<void> _endSessionIfActive() async {
+    if (_sessionStart != null) {
+      await _saveSession(_sessionStart!, _speedyPosition!.timestamp);
+      _sessionStart = null;
+    }
+    _wasOutside = false;
+    _isOutside = false;
+    _speedyGonzalesStrike = 0;
+  }
+
   Future<void> _saveSession(DateTime start, DateTime end) async {
+    final duration = end.difference(start).inMinutes;
+    if (duration < 1) {
+      return; // Ignore sessions shorter than 1 minute
+    }
     await sessionsDao.insertSession(
-      OutdoorSessionsCompanion.insert(
-        startTime: start,
-        endTime: end,
-        duration: end.difference(start).inMinutes,
-      ),
+      OutdoorSessionsCompanion.insert(startTime: start, endTime: end, duration: duration),
     );
     await _updateDaySummary(start);
   }
 
   //TODO: Add buffs for XP calculation
   Future<void> _updateDaySummary(DateTime start) async {
-    final totalMinutesForDay = await _getTotalSessionTimeMinutes(start);
-    final totalXpForDay = totalMinutesForDay;
-
     final dateId = _dateToDateId(start);
     final existingSummary = await summariesDao.getByDateId(dateId);
     final streak = existingSummary?.streak ?? await _calculateStreakForDay(start);
+
+    final totalMinutesForDay = await _getTotalSessionTimeMinutes(start);
+    final totalXpForDay = (totalMinutesForDay + (streak * 1.5)).round();
 
     await summariesDao.upsertDaySummary(
       DaySummariesCompanion(

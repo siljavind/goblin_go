@@ -8,6 +8,5 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Needed for async code before runApp
   await dotenv.load();
   await SettingsService().init();
-  print('Loaded daily goal: ${SettingsService().dailyGoal}');
   runApp(const GoblinGoApp());
 }

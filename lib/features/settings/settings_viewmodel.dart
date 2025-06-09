@@ -17,13 +17,9 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   Future<void> _load() async {
-    print('Loading settings...');
     _dailyGoal = _settingsService.dailyGoal;
-    print('Daily goal: $_dailyGoal');
     _themeMode = _settingsService.themeMode;
-    print('Theme mode: $_themeMode');
     _username = _settingsService.username;
-    print('Username: $_username');
     notifyListeners();
   }
 
@@ -32,7 +28,6 @@ class SettingsViewModel extends ChangeNotifier {
     _dailyGoal = goal;
     notifyListeners();
     await _settingsService.setDailyGoal(goal);
-    print(_dailyGoal);
   }
 
   Future<void> setThemeMode(ThemeMode mode) async {
