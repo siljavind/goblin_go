@@ -33,7 +33,6 @@ class _OnboardingDialogState extends State<OnboardingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    // Builds the alert dialog with onboarding content.
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
       content: const OnboardingContent(),

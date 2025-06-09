@@ -4,14 +4,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class MapboxService {
-  MapboxService._();
-  static final MapboxService instance = MapboxService._();
+  MapboxService();
+
   final accessToken = dotenv.env['MAPBOX_TOKEN'];
 
-  Future<bool> isPositionOutside({
-    required double longitude,
-    required double latitude,
-  }) async {
+  Future<bool> isPositionOutside({required double longitude, required double latitude}) async {
     final url = Uri.parse(
       'https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/tilequery/'
       '$longitude,$latitude.json?radius=1&limit=1&dedupe&layers=building&access_token=$accessToken',

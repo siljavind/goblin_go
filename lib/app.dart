@@ -1,30 +1,52 @@
 // lib/app.dart
 import 'package:flutter/material.dart';
-import 'package:goblin_go/features/home/location_viewmodel.dart';
 import 'package:goblin_go/features/settings/settings_viewmodel.dart';
-import 'package:goblin_go/services/location_service.dart';
+import 'package:goblin_go/services/background_service.dart';
 import 'package:goblin_go/services/mapbox_service.dart';
+import 'package:goblin_go/services/session_tracker_service.dart';
+import 'package:goblin_go/services/settings_service.dart';
+import 'package:goblin_go/services/timer_service.dart';
 import 'package:provider/provider.dart';
 
 import 'app_shell.dart';
+import 'data/local/app_database.dart';
+import 'data/local/day_summaries_dao.dart';
+import 'data/local/outdoor_sessions_dao.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
 
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
 
-  //TODO: Reinstate themeMode from settingsViewModel
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => LocationViewModel(
-            BackgroundLocationService.instance,
-            MapboxService.instance,
-          ),
-        ),
         ChangeNotifierProvider(create: (_) => SettingsViewModel()),
         ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
+        Provider(create: (_) => AppDatabase(), dispose: (_, db) => db.close()),
+        Provider(create: (c) => DaySummariesDao(c.read<AppDatabase>())),
+        Provider(create: (c) => OutdoorSessionsDao(c.read<AppDatabase>())),
+        Provider<SettingsService>(create: (_) => SettingsService()..init(), lazy: false),
+        Provider<BackgroundService>(create: (_) => BackgroundService()),
+        Provider<MapboxService>(create: (_) => MapboxService()),
+        Provider<TimerService>(create: (_) => TimerService()),
+
+        ProxyProvider5<
+          BackgroundService,
+          MapboxService,
+          TimerService,
+          OutdoorSessionsDao,
+          DaySummariesDao,
+          SessionTrackerService
+        >(
+          update: (_, bg, mapbox, timer, sesDao, sumDao, _) => SessionTrackerService(
+            backgroundService: bg,
+            mapboxService: mapbox,
+            timerService: timer,
+            sessionsDao: sesDao,
+            summariesDao: sumDao,
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'GoblinGo',
@@ -38,7 +60,8 @@ class GoblinGoApp extends StatelessWidget {
           useMaterial3: true,
           colorSchemeSeed: Colors.green,
         ),
-        home: const AppShell(), //TODO: Change to MainScaffold
+        themeMode: SettingsService().themeMode,
+        home: const AppShell(),
       ),
     );
   }

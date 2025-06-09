@@ -1,6 +1,7 @@
 // lib/app_shell.dart
 import 'package:flutter/material.dart';
-import 'package:goblin_go/services/location_service.dart';
+import 'package:goblin_go/services/background_service.dart';
+import 'package:goblin_go/services/session_tracker_service.dart';
 import 'package:provider/provider.dart';
 
 import 'features/home/bottom_navigation.dart';
@@ -40,15 +41,18 @@ class _AppShellState extends State<AppShell> {
   }
 
   Future<void> _onPermissionGranted() async {
-    await BackgroundLocationService.instance.init();
+    final bg = context.read<BackgroundService>();
+    final tracker = context.read<SessionTrackerService>();
+
+    await bg.init();
+    tracker.startTracking();
   }
 
   @override
   Widget build(BuildContext context) {
     final onboarding = Provider.of<OnboardingViewModel>(context);
 
-    if (onboarding.state != OnboardingState.granted &&
-        onboarding.state != OnboardingState.error) {
+    if (onboarding.state != OnboardingState.granted && onboarding.state != OnboardingState.error) {
       // Show loading while waiting for permission flow to finish
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }

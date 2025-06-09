@@ -6,6 +6,5 @@ import 'app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Needed for async code before runApp
   await dotenv.load();
-
   runApp(const GoblinGoApp());
 }

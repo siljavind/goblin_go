@@ -29,10 +29,7 @@ class DaySummaries extends Table {
   Set<Column> get primaryKey => {dateId};
 }
 
-@DriftDatabase(
-  tables: [OutdoorSessions, DaySummaries],
-  daos: [OutdoorSessionsDao, DaySummariesDao],
-)
+@DriftDatabase(tables: [OutdoorSessions, DaySummaries], daos: [OutdoorSessionsDao, DaySummariesDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase() : super(_openConnection());
 
@@ -50,6 +47,7 @@ class AppDatabase extends _$AppDatabase {
   );
 }
 
+//TODO: Necessary?
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
     final dbFolder = await getApplicationDocumentsDirectory();
