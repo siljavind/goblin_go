@@ -1,4 +1,3 @@
-// lib/features/onboarding/onboarding_dialog.dart
 import 'package:flutter/material.dart';
 import 'package:goblin_go/features/onboarding/onboarding_viewmodel.dart';
 import 'package:goblin_go/features/onboarding/widgets/onboarding_content.dart';
@@ -33,10 +32,7 @@ class _OnboardingDialogState extends State<OnboardingDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      contentPadding: EdgeInsets.zero,
-      content: const OnboardingContent(),
-    );
+    return AlertDialog(contentPadding: EdgeInsets.zero, content: const OnboardingContent());
   }
 
   @override

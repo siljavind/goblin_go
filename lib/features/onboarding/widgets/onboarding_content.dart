@@ -1,4 +1,3 @@
-// lib/features/onboarding/widgets/onboarding_content.dart
 import 'package:flutter/material.dart';
 import 'package:goblin_go/features/onboarding/widgets/onboarding_step.dart';
 import 'package:provider/provider.dart';

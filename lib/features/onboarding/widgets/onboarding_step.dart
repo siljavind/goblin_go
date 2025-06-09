@@ -1,4 +1,3 @@
-// lib/features/onboarding/widgets/onboarding_step.dart
 import 'package:flutter/material.dart';
 
 /// A scaffold representing a single step in the onboarding process.
@@ -32,11 +31,7 @@ class OnboardingStep extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            icon,
-            size: 60,
-            color: error ? Colors.redAccent : Colors.green.shade700,
-          ),
+          Icon(icon, size: 60, color: error ? Colors.redAccent : Colors.green.shade700),
           const SizedBox(height: 18),
           Text(
             title,
@@ -60,9 +55,7 @@ class OnboardingStep extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: onButtonPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: error ? Colors.redAccent : null,
-              ),
+              style: ElevatedButton.styleFrom(backgroundColor: error ? Colors.redAccent : null),
               child: Text(buttonLabel),
             ),
           ),
