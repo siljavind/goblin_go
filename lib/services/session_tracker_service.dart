@@ -34,7 +34,7 @@ class SessionTrackerService {
   void startTracking() =>
       _positionSubscription = backgroundService.positionStream().listen(_handlePosition);
 
-  //TODO: Handle edge cases where position becomes invalid while tracking
+  //TODO: Handle edge cases where position becomes invalid while tracking (eg. when user is on a train or on a bus..)
   Future<void> _handlePosition(Position pos) async {
     if (!_isValid(pos)) return;
 

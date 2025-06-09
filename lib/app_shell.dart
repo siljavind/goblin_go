@@ -52,11 +52,13 @@ class _AppShellState extends State<AppShell> {
   Widget build(BuildContext context) {
     final onboarding = Provider.of<OnboardingViewModel>(context);
 
-    if (onboarding.state != OnboardingState.granted && onboarding.state != OnboardingState.error) {
-      // Show loading while waiting for permission flow to finish
-      return const Scaffold(
-        body: Center(child: CircularProgressIndicator()),
-      ); //TODO: Replace with placeholder of actual app
+    if (onboarding.state != OnboardingState.granted) {
+      return Stack(
+        children: [
+          BottomNavigation(),
+          Positioned.fill(child: ColoredBox(color: Colors.black.withAlpha(150))),
+        ],
+      );
     }
 
     return const BottomNavigation();
