@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:goblin_go/data/local/day_summaries_dao.dart';
 import 'package:goblin_go/services/settings_service.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
 import 'home_viewmodel.dart';
@@ -83,7 +83,6 @@ class _ProgressCard extends StatelessWidget {
         SizedBox(
           height: 180,
           width: 180,
-          //TODO Use a custom progress indicator
           child: LiquidCircularProgressIndicator(
             value: progress,
             valueColor: AlwaysStoppedAnimation(cs.primary),
