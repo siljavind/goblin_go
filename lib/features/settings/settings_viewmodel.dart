@@ -24,6 +24,7 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   //TODO: Notify home when settings change
+  //TODO: Check if anybody is listening to these changes
   Future<void> setDailyGoal(int goal) async {
     if (goal == _dailyGoal) return;
     _dailyGoal = goal;

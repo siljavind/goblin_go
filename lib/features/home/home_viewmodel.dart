@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:goblin_go/data/local/day_summaries_dao.dart';
+import 'package:goblin_go/features/settings/settings_viewmodel.dart';
 
 import '../../services/settings_service.dart';
 
@@ -25,9 +26,10 @@ class HomeViewModel with ChangeNotifier {
   void _listen() {
     final dateId = _dateToDateId(DateTime.now());
 
-    _minSub = _dao.watchTotalMinutesForDay(dateId).listen((m) {
+    //TODO: Make sure the progress updates when the daily goal changes
+    _minSub = _dao.watchTotalMinutesForDay(dateId).listen((minutes) {
       final goal = _settings.dailyGoal;
-      progress = goal == 0 ? 0 : (m / goal).clamp(0, 1); // TODO: Look into this
+      progress = (minutes / goal).clamp(0, 1);
       notifyListeners();
     });
 

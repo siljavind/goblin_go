@@ -35,7 +35,7 @@ class SettingsView extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Name',
                           prefixIcon: const Icon(Icons.person),
-                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(100)),
                         ),
                         onSubmitted: (value) {
                           final name = value.trim();
@@ -74,7 +74,7 @@ class SettingsView extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 SliderTheme(
-                  data: SliderTheme.of(context).copyWith(trackHeight: 40),
+                  data: SliderTheme.of(context).copyWith(trackHeight: 50),
                   child: Slider(
                     value: vm.dailyGoal.clamp(5, 180).toDouble(),
                     min: 5,
