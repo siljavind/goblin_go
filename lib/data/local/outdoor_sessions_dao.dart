@@ -11,8 +11,8 @@ class OutdoorSessionsDao extends DatabaseAccessor<AppDatabase> with _$OutdoorSes
   Future<int> insertSession(OutdoorSessionsCompanion entry) => into(outdoorSessions).insert(entry);
 
   /// Gets all sessions for a given day.
-  Future<List<OutdoorSession>> getSessionsForDay(DateTime day) {
-    final start = DateTime(day.year, day.month, day.day);
+  Future<List<OutdoorSession>> getSessionsForDay(DateTime date) {
+    final start = DateTime(date.year, date.month, date.day);
     final end = start.add(const Duration(days: 1));
     return (select(outdoorSessions)..where(
           (tbl) =>
@@ -22,8 +22,8 @@ class OutdoorSessionsDao extends DatabaseAccessor<AppDatabase> with _$OutdoorSes
   }
 
   /// Watches (streams) all sessions for a given day.
-  Stream<List<OutdoorSession>> watchSessionsForDay(DateTime day) {
-    final start = DateTime(day.year, day.month, day.day);
+  Stream<List<OutdoorSession>> watchSessionsForDay(DateTime date) {
+    final start = DateTime(date.year, date.month, date.day);
     final end = start.add(const Duration(days: 1));
     return (select(outdoorSessions)..where(
           (tbl) =>

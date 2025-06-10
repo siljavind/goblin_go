@@ -34,7 +34,8 @@ class SessionTrackerService {
   });
 
   void startTracking() =>
-      _positionSubscription = backgroundService.positionStream().listen(_handlePosition);
+    _positionSubscription = backgroundService.positionStream().listen(_handlePosition);
+
 
   Future<void> _handlePosition(Position pos) async {
     // Handle cases where the user is moving too fast

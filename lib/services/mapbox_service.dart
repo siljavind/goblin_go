@@ -8,7 +8,8 @@ class MapboxService {
   factory MapboxService() => _instance;
   MapboxService._internal();
 
-  final accessToken = dotenv.env['MAPBOX_TOKEN'];
+  final accessToken = dotenv.env['MAPBOX_TOKEN'] ?? () =>
+  throw Exception('Mapbox access token is not set in .env file');
 
   Future<bool> isPositionOutside({required double longitude, required double latitude}) async {
     final url = Uri.parse(
@@ -16,7 +17,6 @@ class MapboxService {
       '$longitude,$latitude.json?radius=1&limit=1&dedupe&layers=building&access_token=$accessToken',
     );
 
-    //TODO: Data is only shown in UI if a breakpoint is applied and hit
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = json.decode(response.body);

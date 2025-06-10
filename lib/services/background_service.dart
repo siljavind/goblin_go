@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:goblin_go/constants.dart';
 
 import 'background_location_entrypoint.dart' as loc;
 
@@ -29,7 +30,7 @@ class BackgroundService {
       ),
     );
 
-    _service.on('location_event').listen((event) {
+    _service.on(ConstantStrings.eventName).listen((event) {
       if (event == null) return;
       _controller.add(
         Position(
@@ -48,7 +49,7 @@ class BackgroundService {
     });
   }
 
-  Future<void> pauseTracking() async => _service.invoke('pause_tracking');
+  Future<void> pauseTracking() async => _service.invoke(ConstantStrings.pauseTracking);
 
-  Future<void> resumeTracking() async => _service.invoke('resume_tracking');
+  Future<void> resumeTracking() async => _service.invoke(ConstantStrings.resumeTracking);
 }

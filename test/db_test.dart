@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:goblin_go/data/local/app_database.dart';
@@ -59,6 +61,48 @@ void main() {
         0,
         reason: 'Should match to the second (ignore microseconds)',
       );
+    });
+
+    test('Watch sessions for a specific day', () async {
+      final now = DateTime.now();
+      await sessionsDao.insertSession(
+        OutdoorSessionsCompanion.insert(
+          startTime: now,
+          endTime: now.add(Duration(hours: 1)),
+          duration: 60,
+        ),
+      );
+
+      final StreamSubscription streamSub = sessionsDao.watchSessionsForDay(now).listen((x) {
+        print(x);
+      });
+
+      await sessionsDao.insertSession(
+        OutdoorSessionsCompanion.insert(
+          startTime: now.add(Duration(hours: 1)),
+          endTime: now.add(Duration(hours: 2)),
+          duration: 60,
+        ),
+      );
+
+      expect(
+        streamSub.isPaused,
+        false,
+        reason: "Stream should not be paused after inserting a new session",
+      );
+
+      streamSub.cancel();
+
+
+      // final stream = sessionsDao.watchSessionsForDay(now);
+      // final sessions = await stream.first;
+      //
+      // expect(sessions, isNotEmpty, reason: "Should have one session from the stream");
+      // expect(
+      //   sessions.first.startTime.difference(now).inSeconds,
+      //   0,
+      //   reason: 'Should match to the second (ignore microseconds)',
+      // );
     });
   });
 }

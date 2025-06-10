@@ -1,5 +1,6 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:goblin_go/constants.dart';
 
 final androidSettings = AndroidSettings(
   distanceFilter: 0,
@@ -18,7 +19,7 @@ Future<void> onStart(ServiceInstance service) async {
       Geolocator.getPositionStream(
         locationSettings: service is AndroidServiceInstance ? androidSettings : appleSettings,
       ).listen((pos) {
-        service.invoke('tracking_event', {
+        service.invoke(ConstantStrings.eventName, {
           'latitude': pos.latitude,
           'longitude': pos.longitude,
           'timestamp': pos.timestamp.millisecondsSinceEpoch,
@@ -32,6 +33,6 @@ Future<void> onStart(ServiceInstance service) async {
         });
       });
 
-  service.on('pause_tracking').listen((_) => sub.pause());
-  service.on('resume_tracking').listen((_) => sub.resume());
+  service.on(ConstantStrings.pauseTracking).listen((_) => sub.pause());
+  service.on(ConstantStrings.resumeTracking).listen((_) => sub.resume());
 }

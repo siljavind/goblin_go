@@ -27,17 +27,17 @@ class HomeViewModel with ChangeNotifier {
 
     _minSub = _dao.watchTotalMinutesForDay(dateId).listen((m) {
       final goal = _settings.dailyGoal;
-      progress = goal == 0 ? 0 : (m / goal).clamp(0, 1); //TODO: Look into this
+      progress = goal == 0 ? 0 : (m / goal).clamp(0, 1); // TODO: Look into this
       notifyListeners();
     });
 
-    //TODO Make null safe
+    // TODO Make null safe
     _xpSub = _dao.watchTotalXp().listen((x) {
       xp = x;
       notifyListeners();
     });
 
-    //TODO Move logic to timer service? Since it should only be evaluated once per day
+    // TODO Move logic to timer service? Since it should only be evaluated once per day
     _sumSub = _dao.watchByDateId(dateId).listen((s) {
       streak = s?.streak ?? 0;
       notifyListeners();
