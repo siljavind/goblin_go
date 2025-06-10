@@ -34,10 +34,10 @@ class SessionTrackerService {
   });
 
   void startTracking() =>
-    _positionSubscription = backgroundService.positionStream().listen(_handlePosition);
+    _positionSubscription = backgroundService.positionStream().listen(handlePosition);
 
 
-  Future<void> _handlePosition(Position pos) async {
+  Future<void> handlePosition(Position pos) async {
     // Handle cases where the user is moving too fast
     if (pos.speed >= 7) {
       if (++_speedyGonzalesStrike == 1) _speedyPosition = pos;
@@ -64,8 +64,8 @@ class SessionTrackerService {
       _sessionStart = null;
     }
     // While outside: check if daily goal is reached
-    else if (_isOutside && _sessionStart != null) {
-      _checkDailyGoal(pos);
+    else if (_isOutside && _wasOutside && _sessionStart != null) {
+      await _checkDailyGoal(pos);
     }
 
     _wasOutside = _isOutside;
@@ -78,7 +78,7 @@ class SessionTrackerService {
     if (totalMinutes >= SettingsService().dailyGoal) {
       await _saveSession(_sessionStart!, pos.timestamp);
       _sessionStart = null;
-      pauseTracking();
+      await pauseTracking();
     }
   }
 
@@ -158,4 +158,15 @@ class SessionTrackerService {
 
   int _dateToDateId(DateTime date) =>
       date.year * 10000 + date.month * 100 + date.day; // YYYYMMDD format
+
+  //TODO Remove?
+  void dispose() {
+    _positionSubscription?.cancel();
+    _positionSubscription = null;
+    _sessionStart = null;
+    _isOutside = false;
+    _wasOutside = false;
+    _speedyGonzalesStrike = 0;
+    _speedyPosition = null;
+  }
 }

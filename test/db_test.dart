@@ -92,17 +92,6 @@ void main() {
       );
 
       streamSub.cancel();
-
-
-      // final stream = sessionsDao.watchSessionsForDay(now);
-      // final sessions = await stream.first;
-      //
-      // expect(sessions, isNotEmpty, reason: "Should have one session from the stream");
-      // expect(
-      //   sessions.first.startTime.difference(now).inSeconds,
-      //   0,
-      //   reason: 'Should match to the second (ignore microseconds)',
-      // );
     });
   });
 }
