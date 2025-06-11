@@ -10,7 +10,6 @@ import 'outdoor_sessions_dao.dart';
 
 part 'app_database.g.dart';
 
-/// Table for storing each outdoor session.
 class OutdoorSessions extends Table {
   IntColumn get id => integer().autoIncrement()();
   DateTimeColumn get startTime => dateTime()();
@@ -18,7 +17,6 @@ class OutdoorSessions extends Table {
   IntColumn get duration => integer()();
 }
 
-/// Table for storing day summary data.
 class DaySummaries extends Table {
   IntColumn get dateId => integer()(); // 'YYYYMMDD'
   IntColumn get totalMinutes => integer()();

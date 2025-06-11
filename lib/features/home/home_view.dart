@@ -24,7 +24,7 @@ class HomeView extends StatelessWidget {
 
     final bottomText = minutesLeft > 0
         ? "Hey $user, $minutesLeft minutes left to loot today!"
-        : "All done, $user - enjoy your peace (for now)!";
+        : "All done, $user - enjoy your peace!";
 
     return Scaffold(
       appBar: AppBar(
@@ -99,7 +99,7 @@ class StatCardsWidget extends StatelessWidget {
             child: PaddedCard(
               title: 'Total XP',
               bigTitle: true,
-              child: Text(vm.xp.toString(), style: Theme.of(context).textTheme.displayMedium),
+              child: Text(vm.xp.toString(), style: Theme.of(context).textTheme.displaySmall),
             ),
           ),
         ),
@@ -109,7 +109,7 @@ class StatCardsWidget extends StatelessWidget {
             child: PaddedCard(
               title: 'Streak',
               bigTitle: true,
-              child: Text(vm.streak.toString(), style: Theme.of(context).textTheme.displayMedium),
+              child: Text(vm.streak.toString(), style: Theme.of(context).textTheme.displaySmall),
             ),
           ),
         ),

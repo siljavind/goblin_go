@@ -5,7 +5,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:goblin_go/utils/constants.dart';
 
-import 'background_location_entrypoint.dart' as loc;
+import 'background_geolocator_entrypoint.dart' as loc;
 
 class BackgroundService {
   static final BackgroundService _instance = BackgroundService._internal();

@@ -34,7 +34,7 @@ class PaddedCard extends StatelessWidget {
       color: color ?? cs.surfaceContainer,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      elevation: 5,
+      elevation: 3,
       child: Padding(
         padding: padding,
         child: Column(
