@@ -14,12 +14,12 @@ class HomeViewModel with ChangeNotifier {
   int xp = 0;
   int streak = 0;
 
-  late final StreamSubscription _summarySub;
+  late final StreamSubscription _summariesSub;
 
   void _listen() {
     final dateId = _dateToDateId(DateTime.now());
 
-    _summarySub = _dao.watchByDateId(dateId).listen((summary) {
+    _summariesSub = _dao.watchByDateId(dateId).listen((summary) {
       if (summary != null) {
         minutes = summary.totalMinutes;
         xp = summary.totalXp;
@@ -33,7 +33,7 @@ class HomeViewModel with ChangeNotifier {
 
   @override
   void dispose() {
-    _summarySub.cancel();
+    _summariesSub.cancel();
     super.dispose();
   }
 }

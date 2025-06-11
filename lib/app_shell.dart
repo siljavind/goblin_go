@@ -72,10 +72,10 @@ class _AppShellState extends State<AppShell> {
       selectedIndex: _selectedPageIndex,
       onDestinationSelected: (i) => setState(() => _selectedPageIndex = i),
       destinations: const [
-        NavigationDestination(icon: Icon(Icons.calendar_today), label: 'History'),
+        //NavigationDestination(icon: Icon(Icons.calendar_today), label: 'History'),
         NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
         NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
-        NavigationDestination(icon: Icon(Icons.developer_mode), label: 'db view'),
+        // NavigationDestination(icon: Icon(Icons.developer_mode), label: 'db view'),
       ],
     ),
   );
