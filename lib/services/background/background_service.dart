@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_background_service/flutter_background_service.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:goblin_go/constants.dart';
+import 'package:goblin_go/utils/constants.dart';
 
-import 'background_location_entrypoint.dart' as loc;
+import 'background_geolocator_entrypoint.dart' as loc;
 
 class BackgroundService {
   static final BackgroundService _instance = BackgroundService._internal();
@@ -15,21 +16,54 @@ class BackgroundService {
   Stream<Position> positionStream() => _controller.stream;
 
   late final FlutterBackgroundService _service;
+  final FlutterLocalNotificationsPlugin _fln = FlutterLocalNotificationsPlugin();
+
+  static const notificationChannelId = 'goblin_background';
+  static const notificationId = 888;
 
   Future<void> init() async {
+    const channel = AndroidNotificationChannel(
+      notificationChannelId,
+      'GOBLIN BACKGROUND SERVICE',
+      description: 'Keep app alive in background',
+      importance: Importance.low,
+    );
+
+    await _fln
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
+
     _service = FlutterBackgroundService();
 
     await _service.configure(
       iosConfiguration: IosConfiguration(onForeground: loc.onStart),
       androidConfiguration: AndroidConfiguration(
+        notificationChannelId: notificationChannelId,
         onStart: loc.onStart,
         isForegroundMode: true,
         foregroundServiceTypes: [AndroidForegroundType.location],
-        initialNotificationTitle: 'GoblinGo Location Service',
-        initialNotificationContent: 'Tracking your location..',
+        foregroundServiceNotificationId: notificationId,
       ),
     );
 
+    await _fln.show(
+      notificationId,
+      "GoblinGo tracking",
+      "Tracking your location..",
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          notificationChannelId,
+          'GOBLIN BACKGROUND SERVICE',
+          icon: 'ic_stat_goblin',
+          ongoing: true,
+        ),
+      ),
+    );
+
+    _startListening();
+  }
+
+  void _startListening() {
     _service.on(ConstantStrings.eventName).listen((event) {
       if (event == null) return;
       _controller.add(

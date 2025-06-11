@@ -4,11 +4,11 @@ import 'package:drift/drift.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:goblin_go/data/local/day_summaries_dao.dart';
 import 'package:goblin_go/data/local/outdoor_sessions_dao.dart';
-import 'package:goblin_go/services/background_service.dart';
+import 'package:goblin_go/services/background/background_service.dart';
 import 'package:goblin_go/services/settings_service.dart';
-import 'package:goblin_go/services/timer_service.dart';
+import 'package:goblin_go/services/tracking/timer_service.dart';
 
-import '../data/local/app_database.dart';
+import '../../data/local/app_database.dart';
 import 'mapbox_service.dart';
 
 class SessionTrackerService {
@@ -33,7 +33,7 @@ class SessionTrackerService {
     required this.summariesDao,
   });
 
-  void startTracking() =>
+  void startListening() =>
       _positionSubscription = backgroundService.positionStream().listen(handlePosition);
 
   Future<void> handlePosition(Position pos) async {

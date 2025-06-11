@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 ///
 /// This widget displays an icon, title, description, optional "tip", and a button
 /// for user interaction. It can also visually indicate an error state.
-class OnboardingStep extends StatelessWidget {
+class OnboardingWidget extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
@@ -12,7 +12,7 @@ class OnboardingStep extends StatelessWidget {
   final VoidCallback onButtonPressed;
   final bool error;
 
-  const OnboardingStep({
+  const OnboardingWidget({
     required this.icon,
     required this.title,
     required this.description,

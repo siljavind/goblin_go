@@ -34,7 +34,7 @@ class PaddedCard extends StatelessWidget {
       color: color ?? cs.surfaceContainer,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      elevation: 5,
+      elevation: 3,
       child: Padding(
         padding: padding,
         child: Column(
@@ -50,7 +50,11 @@ class PaddedCard extends StatelessWidget {
             if (bottomText != null) ...[
               const SizedBox(height: 12),
               Divider(),
-              Text(bottomText!, style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                bottomText!,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
             ],
           ],
         ),

@@ -16,7 +16,7 @@ class MapboxService {
   Future<bool> isPositionOutside({required double longitude, required double latitude}) async {
     final url = Uri.parse(
       'https://api.mapbox.com/v4/mapbox.mapbox-streets-v8/tilequery/'
-      '$longitude,$latitude.json?radius=2&limit=1&layers=building&access_token=$accessToken',
+      '$longitude,$latitude.json?radius=4&limit=1&layers=building&access_token=$accessToken',
     );
 
     final response = await http.get(url);

@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:goblin_go/features/home/home_viewmodel.dart';
 import 'package:goblin_go/features/settings/settings_viewmodel.dart';
-import 'package:goblin_go/services/background_service.dart';
-import 'package:goblin_go/services/mapbox_service.dart';
-import 'package:goblin_go/services/session_tracker_service.dart';
+import 'package:goblin_go/services/background/background_service.dart';
+import 'package:goblin_go/services/notification_service.dart';
 import 'package:goblin_go/services/settings_service.dart';
-import 'package:goblin_go/services/timer_service.dart';
+import 'package:goblin_go/services/tracking/mapbox_service.dart';
+import 'package:goblin_go/services/tracking/session_tracker_service.dart';
+import 'package:goblin_go/services/tracking/timer_service.dart';
 import 'package:provider/provider.dart';
 
 import 'app_shell.dart';
@@ -14,7 +15,7 @@ import 'data/local/app_database.dart';
 import 'data/local/day_summaries_dao.dart';
 import 'data/local/outdoor_sessions_dao.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
-import 'goblin_theme.dart';
+import 'utils/goblin_theme.dart';
 
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
@@ -31,6 +32,12 @@ class GoblinGoApp extends StatelessWidget {
         ChangeNotifierProvider(create: (c) => HomeViewModel(c.read<DaySummariesDao>())),
         ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider<BackgroundService>(create: (_) => BackgroundService()),
+        Provider<NotificationService>(
+          create: (c) =>
+              NotificationService(c.read<SettingsService>(), c.read<DaySummariesDao>())..init(),
+          dispose: (_, s) => s.dispose(),
+          lazy: false,
+        ),
         Provider<MapboxService>(create: (_) => MapboxService()),
         Provider<TimerService>(create: (_) => TimerService()),
 

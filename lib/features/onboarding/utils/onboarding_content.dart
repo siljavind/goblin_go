@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:goblin_go/features/onboarding/widgets/onboarding_step.dart';
+import 'package:goblin_go/features/onboarding/utils/onboarding_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../onboarding_state.dart';
 import '../onboarding_viewmodel.dart';
+import 'onboarding_state.dart';
 
 /// A widget that displays onboarding content based on the current state.
 ///
@@ -19,7 +19,7 @@ class OnboardingContent extends StatelessWidget {
 
     switch (viewModel.state) {
       case OnboardingState.awaitingInUse:
-        return OnboardingStep(
+        return OnboardingWidget(
           icon: Icons.nature_people,
           title: "Adventure awaits!",
           description: "Let me track your location while you use the app.",
@@ -28,7 +28,7 @@ class OnboardingContent extends StatelessWidget {
         );
 
       case OnboardingState.awaitingAlways:
-        return OnboardingStep(
+        return OnboardingWidget(
           icon: Icons.directions_walk,
           title: "Give me superpowers!",
           description: "I need \"Always\" location access to count all your outdoor quests.",
@@ -37,7 +37,7 @@ class OnboardingContent extends StatelessWidget {
         );
 
       case OnboardingState.error:
-        return OnboardingStep(
+        return OnboardingWidget(
           icon: Icons.lock,
           title: "Permission denied",
           description: "Location permission denied. Please \"Allow all the time\" in settings.",
