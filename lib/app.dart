@@ -1,5 +1,6 @@
 // lib/app.dart
 import 'package:flutter/material.dart';
+import 'package:goblin_go/features/home/home_viewmodel.dart';
 import 'package:goblin_go/features/settings/settings_viewmodel.dart';
 import 'package:goblin_go/services/background_service.dart';
 import 'package:goblin_go/services/mapbox_service.dart';
@@ -13,6 +14,7 @@ import 'data/local/app_database.dart';
 import 'data/local/day_summaries_dao.dart';
 import 'data/local/outdoor_sessions_dao.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
+import 'goblin_theme.dart';
 
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
@@ -27,6 +29,9 @@ class GoblinGoApp extends StatelessWidget {
         Provider(create: (c) => OutdoorSessionsDao(c.read<AppDatabase>())),
         Provider<SettingsService>(create: (_) => SettingsService()),
         ChangeNotifierProvider(create: (c) => SettingsViewModel(c.read<SettingsService>())),
+        ChangeNotifierProvider(
+          create: (c) => HomeViewModel(c.read<DaySummariesDao>(), c.read<SettingsService>()),
+        ),
         ChangeNotifierProvider(create: (_) => OnboardingViewModel()),
         Provider<BackgroundService>(create: (_) => BackgroundService()),
         Provider<MapboxService>(create: (_) => MapboxService()),
@@ -52,16 +57,8 @@ class GoblinGoApp extends StatelessWidget {
       child: Consumer<SettingsViewModel>(
         builder: (_, vm, _) => MaterialApp(
           title: 'GoblinGo',
-          theme: ThemeData(
-            brightness: Brightness.light,
-            useMaterial3: true,
-            colorSchemeSeed: Colors.green,
-          ),
-          darkTheme: ThemeData(
-            brightness: Brightness.dark,
-            useMaterial3: true,
-            colorSchemeSeed: Colors.green,
-          ),
+          theme: GoblinTheme.light,
+          darkTheme: GoblinTheme.dark,
           themeMode: vm.themeMode,
           home: const AppShell(),
         ),

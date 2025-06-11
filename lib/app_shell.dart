@@ -4,7 +4,7 @@ import 'package:goblin_go/services/background_service.dart';
 import 'package:goblin_go/services/session_tracker_service.dart';
 import 'package:provider/provider.dart';
 
-import 'features/home/bottom_navigation.dart';
+import 'bottom_navigation.dart';
 import 'features/onboarding/onboarding_dialog.dart';
 import 'features/onboarding/onboarding_state.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
@@ -24,11 +24,9 @@ class _AppShellState extends State<AppShell> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final onboarding = Provider.of<OnboardingViewModel>(context);
+    final vm = Provider.of<OnboardingViewModel>(context);
     // Show dialog if permission not granted & not already showing
-    if (!_dialogShown &&
-        onboarding.state != OnboardingState.granted &&
-        onboarding.state != OnboardingState.error) {
+    if (!_dialogShown && vm.state != OnboardingState.granted && vm.state != OnboardingState.error) {
       _dialogShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(

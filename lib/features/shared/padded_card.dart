@@ -1,19 +1,49 @@
 import 'package:flutter/material.dart';
 
-/// A simple Card wrapper with consistent margin, elevation, and padding.
-class SettingCard extends StatelessWidget {
+class PaddedCard extends StatelessWidget {
+  /// If you pass a title, it’s rendered above [child].
+  final String? title;
   final Widget child;
-  const SettingCard({required this.child, super.key});
+  final String? bottomText;
+
+  /// How much inner padding around [child]
+  final EdgeInsetsGeometry padding;
+
+  /// Overrides the default card color (uses surfaceVariant).
+  final Color? color;
+
+  const PaddedCard({
+    super.key,
+    this.title,
+    required this.child,
+    this.bottomText,
+    this.padding = const EdgeInsets.all(16),
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
     return Card(
-      elevation: 1,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      color: color ?? cs.surfaceContainer,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: child,
+        padding: padding,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (title != null) ...[
+              Text(title!, style: Theme.of(context).textTheme.titleMedium),
+              const SizedBox(height: 12),
+            ],
+            child,
+            if (bottomText != null) ...[
+              const SizedBox(height: 12),
+              Text(bottomText!, style: Theme.of(context).textTheme.titleMedium),
+            ],
+          ],
+        ),
       ),
     );
   }

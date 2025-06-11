@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:goblin_go/data/local/day_summaries_dao.dart';
-import 'package:goblin_go/features/settings/settings_viewmodel.dart';
-import 'package:goblin_go/services/settings_service.dart';
 import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:provider/provider.dart';
 
@@ -13,48 +10,41 @@ class HomeView extends StatelessWidget {
   //TODO Move ChangeNotifierProvider to app.dart
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) =>
-          HomeViewModel(context.read<DaySummariesDao>(), context.read<SettingsService>()),
-      child: const _HomeBody(),
-    );
-  }
-}
-
-class _HomeBody extends StatelessWidget {
-  const _HomeBody();
-
-  @override
-  Widget build(BuildContext context) {
     final vm = context.watch<HomeViewModel>();
     final cs = Theme.of(context).colorScheme;
 
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Goblin Go!', style: Theme.of(context).textTheme.headlineMedium),
-            const SizedBox(height: 32),
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset('assets/title_dark.png', height: 48),
+        centerTitle: true,
+        elevation: 2,
+        toolbarHeight: 96,
+      ),
 
-            // Progress card
-            _ProgressCard(progress: vm.progress, cs: cs),
-            const SizedBox(height: 24),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Progress card
+              _ProgressCard(progress: vm.progress, cs: cs),
+              const SizedBox(height: 24),
 
-            // XP / Streak cards
-            Row(
-              children: [
-                Expanded(
-                  child: _MiniCard(label: 'XP', value: vm.xp.toString(), cs: cs),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: _MiniCard(label: 'Streak', value: vm.streak.toString(), cs: cs),
-                ),
-              ],
-            ),
-          ],
+              // XP / Streak cards
+              Row(
+                children: [
+                  Expanded(
+                    child: _MiniCard(label: 'XP', value: vm.xp.toString(), cs: cs),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _MiniCard(label: 'Streak', value: vm.streak.toString(), cs: cs),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
