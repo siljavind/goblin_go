@@ -1,4 +1,3 @@
-#TODO: Look at this file when more of the app is implemented.
 # .github/workflows/ci_test.yml
 on:
   pull_request:

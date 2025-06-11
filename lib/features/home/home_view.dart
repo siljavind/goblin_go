@@ -1,47 +1,89 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:goblin_go/features/home/location_viewmodel.dart';
+import 'package:goblin_go/features/shared/padded_card.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
 import 'package:provider/provider.dart';
+
+import '../settings/settings_viewmodel.dart';
+import 'home_viewmodel.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final Position? pos = context.watch<LocationViewModel>().latest;
-    final bool? isInside = context.watch<LocationViewModel>().isInside;
+    final settingsVm = context.watch<SettingsViewModel>();
+    final vm = context.watch<HomeViewModel>();
+    final colorScheme = Theme.of(context).colorScheme;
+    final titleImage = colorScheme.brightness == Brightness.dark
+        ? 'assets/title_dark.png'
+        : 'assets/title_light.png';
 
-    String statusText;
-    if (isInside == null) {
-      statusText = 'Checking location...';
-    } else if (isInside) {
-      statusText = 'You are inside the building.';
-    } else {
-      statusText = 'You are outside the building.';
-    }
+    final progress = (vm.minutes / settingsVm.dailyGoal).clamp(0, 1).toDouble();
+    final minutesLeft = settingsVm.dailyGoal - vm.minutes;
 
-    return Center(
-      child: pos == null
-          ? const CircularProgressIndicator()
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'Latitude  ${pos.latitude.toStringAsFixed(5)}',
-                  style: Theme.of(context).textTheme.headlineSmall,
+    return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(titleImage, height: 48),
+        centerTitle: true,
+        elevation: 2,
+        toolbarHeight: 100,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: [
+          PaddedCard(
+            title: 'Daily Progress',
+            bigTitle: true,
+            bottomText: minutesLeft > 0
+                ? '$minutesLeft minutes until daily goal is reached!'
+                : 'Daily goal reached!',
+            child: SizedBox(
+              height: 250,
+              width: 250,
+              child: LiquidCircularProgressIndicator(
+                value: progress,
+                valueColor: AlwaysStoppedAnimation(colorScheme.primary),
+                borderColor: colorScheme.primary,
+                backgroundColor: colorScheme.surfaceContainer,
+                borderWidth: 4.0,
+                direction: Axis.vertical,
+                center: Text(
+                  '${(progress * 100).toInt()} %',
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
-                Text(
-                  'Longitude ${pos.longitude.toStringAsFixed(5)}',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                Text(
-                  'Timestamp ${pos.timestamp.toLocal().toIso8601String()}',
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 24),
-                Text(statusText, style: Theme.of(context).textTheme.bodyMedium),
-              ],
+              ),
             ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: PaddedCard(
+                    title: 'Total XP',
+                    bigTitle: true,
+                    child: Text(vm.xp.toString(), style: Theme.of(context).textTheme.displayMedium),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: PaddedCard(
+                    title: 'Streak',
+                    bigTitle: true,
+                    child: Text(
+                      vm.streak.toString(),
+                      style: Theme.of(context).textTheme.displayMedium,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

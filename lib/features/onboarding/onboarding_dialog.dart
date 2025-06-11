@@ -1,4 +1,3 @@
-// lib/features/onboarding/onboarding_dialog.dart
 import 'package:flutter/material.dart';
 import 'package:goblin_go/features/onboarding/onboarding_viewmodel.dart';
 import 'package:goblin_go/features/onboarding/widgets/onboarding_content.dart';
@@ -32,13 +31,8 @@ class _OnboardingDialogState extends State<OnboardingDialog> {
   late VoidCallback listener;
 
   @override
-  Widget build(BuildContext context) {
-    // Builds the alert dialog with onboarding content.
-    return AlertDialog(
-      contentPadding: EdgeInsets.zero,
-      content: const OnboardingContent(),
-    );
-  }
+  Widget build(BuildContext context) =>
+      AlertDialog(contentPadding: EdgeInsets.zero, content: const OnboardingContent());
 
   @override
   void didChangeDependencies() {

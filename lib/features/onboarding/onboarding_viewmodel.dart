@@ -1,4 +1,3 @@
-// lib/features/onboarding/onboarding_viewmodel.dart
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -10,7 +9,7 @@ import 'onboarding_state.dart';
 /// location permissions during the onboarding process. It uses the
 /// [PermissionHandler] package to interact with the device's permission system.
 class OnboardingViewModel extends ChangeNotifier with WidgetsBindingObserver {
-  OnboardingState _state = OnboardingState.awaitingInUse;
+  OnboardingState _state = OnboardingState.loading;
 
   /// Getter for the current onboarding permission state.
   OnboardingState get state => _state;
@@ -54,9 +53,7 @@ class OnboardingViewModel extends ChangeNotifier with WidgetsBindingObserver {
   }
 
   /// Opens the app settings for the user to manually change permissions.
-  Future<void> openSettings() async {
-    await openAppSettings();
-  }
+  Future<void> openSettings() async => await openAppSettings();
 
   /// Sets the onboarding state and notifies listeners if the state changes.
   ///

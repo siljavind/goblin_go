@@ -1,4 +1,3 @@
-// lib/features/onboarding/widgets/onboarding_content.dart
 import 'package:flutter/material.dart';
 import 'package:goblin_go/features/onboarding/widgets/onboarding_step.dart';
 import 'package:provider/provider.dart';
@@ -32,8 +31,7 @@ class OnboardingContent extends StatelessWidget {
         return OnboardingStep(
           icon: Icons.directions_walk,
           title: "Give me superpowers!",
-          description:
-              "I need \"Always\" location access to count all your outdoor quests.",
+          description: "I need \"Always\" location access to count all your outdoor quests.",
           buttonLabel: "Allow access all the time",
           onButtonPressed: viewModel.requestAlways,
         );
@@ -42,15 +40,14 @@ class OnboardingContent extends StatelessWidget {
         return OnboardingStep(
           icon: Icons.lock,
           title: "Permission denied",
-          description:
-              "Location permission denied. Please \"Allow all the time\" in settings.",
+          description: "Location permission denied. Please \"Allow all the time\" in settings.",
           buttonLabel: "Open Settings",
           onButtonPressed: viewModel.openSettings,
           error: true,
         );
 
-      //TODO Check this
       case OnboardingState.granted:
+      case OnboardingState.loading:
         return const SizedBox.shrink();
     }
   }
