@@ -19,7 +19,6 @@ import 'goblin_theme.dart';
 class GoblinGoApp extends StatelessWidget {
   const GoblinGoApp({super.key});
 
-  //TODO
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

@@ -4,12 +4,8 @@ import 'package:provider/provider.dart';
 import '../shared/padded_card.dart';
 import 'settings_viewmodel.dart';
 
-// TODO: Rework layout
-// TODO: Slider label elsewhere
-// TODO: Saving username
 // TODO: Reset progress for the day if user changes daily goal?
 // TODO: Add tests
-// TODO: Refactor if there's time
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 

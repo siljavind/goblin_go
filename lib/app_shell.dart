@@ -20,7 +20,6 @@ class AppShell extends StatefulWidget {
   State<AppShell> createState() => _AppShellState();
 }
 
-//TODO Refactor when all MVP components are done
 class _AppShellState extends State<AppShell> {
   bool _dialogShown = false;
   int _selectedPageIndex = 1;
@@ -30,9 +29,10 @@ class _AppShellState extends State<AppShell> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final vm = Provider.of<OnboardingViewModel>(context);
+    final state = Provider.of<OnboardingViewModel>(context).state;
+
     // Show dialog if permission not granted & not already showing
-    if (!_dialogShown && vm.state != OnboardingState.granted && vm.state != OnboardingState.error) {
+    if (!_dialogShown && state != OnboardingState.granted && state != OnboardingState.error) {
       _dialogShown = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         showDialog(
@@ -64,20 +64,6 @@ class _AppShellState extends State<AppShell> {
               const Positioned.fill(child: ColoredBox(color: Colors.black45)),
             ],
           );
-
-    //TODO If anything suddenly breaks, check if this is the cause
-    final onboarding = Provider.of<OnboardingViewModel>(context);
-
-    if (onboarding.state != OnboardingState.granted) {
-      return Stack(
-        children: [
-          _buildScaffold(),
-          Positioned.fill(child: ColoredBox(color: Colors.black.withAlpha(150))),
-        ],
-      );
-    }
-
-    return _buildScaffold();
   }
 
   Scaffold _buildScaffold() => Scaffold(
@@ -101,7 +87,7 @@ class DbView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final db = AppDatabase();
+    final db = Provider.of<AppDatabase>(context);
 
     return DriftDbViewer(db);
   }

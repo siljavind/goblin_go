@@ -8,7 +8,6 @@ class TimerService {
 
   Timer? _timer;
 
-  //TODO: Change to threading
   void startMidnightTimer({required VoidCallback onMidnight}) {
     _timer?.cancel();
     final now = DateTime.now();

@@ -34,8 +34,7 @@ class SessionTrackerService {
   });
 
   void startTracking() =>
-    _positionSubscription = backgroundService.positionStream().listen(handlePosition);
-
+      _positionSubscription = backgroundService.positionStream().listen(handlePosition);
 
   Future<void> handlePosition(Position pos) async {
     // Handle cases where the user is moving too fast
@@ -103,7 +102,6 @@ class SessionTrackerService {
     await _updateDaySummary(start);
   }
 
-  //TODO: Add buffs for XP calculation
   Future<void> _updateDaySummary(DateTime start) async {
     final dateId = _dateToDateId(start);
     final existingSummary = await summariesDao.getByDateId(dateId);
@@ -158,15 +156,4 @@ class SessionTrackerService {
 
   int _dateToDateId(DateTime date) =>
       date.year * 10000 + date.month * 100 + date.day; // YYYYMMDD format
-
-  //TODO Remove?
-  void dispose() {
-    _positionSubscription?.cancel();
-    _positionSubscription = null;
-    _sessionStart = null;
-    _isOutside = false;
-    _wasOutside = false;
-    _speedyGonzalesStrike = 0;
-    _speedyPosition = null;
-  }
 }

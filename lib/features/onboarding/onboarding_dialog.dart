@@ -31,9 +31,8 @@ class _OnboardingDialogState extends State<OnboardingDialog> {
   late VoidCallback listener;
 
   @override
-  Widget build(BuildContext context) {
-    return AlertDialog(contentPadding: EdgeInsets.zero, content: const OnboardingContent());
-  }
+  Widget build(BuildContext context) =>
+      AlertDialog(contentPadding: EdgeInsets.zero, content: const OnboardingContent());
 
   @override
   void didChangeDependencies() {

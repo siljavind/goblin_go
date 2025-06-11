@@ -31,7 +31,6 @@ android {
         versionName = flutter.versionName
     }
 
-// TODO: Go back to debug build
     buildTypes {
         release {
             isMinifyEnabled = true

@@ -73,9 +73,7 @@ void main() {
         ),
       );
 
-      final StreamSubscription streamSub = sessionsDao.watchSessionsForDay(now).listen((x) {
-        print(x);
-      });
+      final StreamSubscription streamSub = sessionsDao.watchSessionsForDay(now).listen((x) {});
 
       await sessionsDao.insertSession(
         OutdoorSessionsCompanion.insert(

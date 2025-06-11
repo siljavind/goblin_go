@@ -2,7 +2,7 @@
 // in goblin_go/test/session_tracker_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, invalid_use_of_internal_member
 import 'dart:async' as _i5;
 import 'dart:ui' as _i10;
 
@@ -31,25 +31,24 @@ import 'package:mockito/src/dummies.dart' as _i12;
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
+// ignore_for_file: strict_raw_type
+// ignore_for_file: prefer_generic_function_type_aliases
+// ignore_for_file: unnecessary_cast
 
 class _FakeObject_0 extends _i1.SmartFake implements Object {
-  _FakeObject_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeObject_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeAppDatabase_1 extends _i1.SmartFake implements _i2.AppDatabase {
-  _FakeAppDatabase_1(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeAppDatabase_1(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeDatabaseConnection_2 extends _i1.SmartFake
-    implements _i3.DatabaseConnection {
+class _FakeDatabaseConnection_2 extends _i1.SmartFake implements _i3.DatabaseConnection {
   _FakeDatabaseConnection_2(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeDriftDatabaseOptions_3 extends _i1.SmartFake
-    implements _i3.DriftDatabaseOptions {
+class _FakeDriftDatabaseOptions_3 extends _i1.SmartFake implements _i3.DriftDatabaseOptions {
   _FakeDriftDatabaseOptions_3(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
@@ -59,27 +58,23 @@ class _FakeQueryExecutor_4 extends _i1.SmartFake implements _i3.QueryExecutor {
     : super(parent, parentInvocation);
 }
 
-class _FakeStreamQueryStore_5 extends _i1.SmartFake
-    implements _i4.StreamQueryStore {
+class _FakeStreamQueryStore_5 extends _i1.SmartFake implements _i4.StreamQueryStore {
   _FakeStreamQueryStore_5(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeDatabaseConnectionUser_6 extends _i1.SmartFake
-    implements _i3.DatabaseConnectionUser {
+class _FakeDatabaseConnectionUser_6 extends _i1.SmartFake implements _i3.DatabaseConnectionUser {
   _FakeDatabaseConnectionUser_6(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _Fake$OutdoorSessionsTable_7 extends _i1.SmartFake
-    implements _i2.$OutdoorSessionsTable {
+class _Fake$OutdoorSessionsTable_7 extends _i1.SmartFake implements _i2.$OutdoorSessionsTable {
   _Fake$OutdoorSessionsTable_7(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
 class _FakeFuture_8<T1> extends _i1.SmartFake implements _i5.Future<T1> {
-  _FakeFuture_8(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeFuture_8(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 class _FakeInsertStatement_9<T1 extends _i3.Table, D1> extends _i1.SmartFake
@@ -94,15 +89,13 @@ class _FakeUpdateStatement_10<T extends _i3.Table, D> extends _i1.SmartFake
     : super(parent, parentInvocation);
 }
 
-class _FakeSimpleSelectStatement_11<T1 extends _i3.HasResultSet, D>
-    extends _i1.SmartFake
+class _FakeSimpleSelectStatement_11<T1 extends _i3.HasResultSet, D> extends _i1.SmartFake
     implements _i3.SimpleSelectStatement<T1, D> {
   _FakeSimpleSelectStatement_11(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _FakeJoinedSelectStatement_12<FirstT extends _i3.HasResultSet, FirstD>
-    extends _i1.SmartFake
+class _FakeJoinedSelectStatement_12<FirstT extends _i3.HasResultSet, FirstD> extends _i1.SmartFake
     implements _i3.JoinedSelectStatement<FirstT, FirstD> {
   _FakeJoinedSelectStatement_12(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
@@ -121,18 +114,15 @@ class _FakeDeleteStatement_14<T1 extends _i3.Table, D1> extends _i1.SmartFake
 }
 
 class _FakeSelectable_15<T> extends _i1.SmartFake implements _i3.Selectable<T> {
-  _FakeSelectable_15(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeSelectable_15(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
-class _FakeGenerationContext_16 extends _i1.SmartFake
-    implements _i3.GenerationContext {
+class _FakeGenerationContext_16 extends _i1.SmartFake implements _i3.GenerationContext {
   _FakeGenerationContext_16(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
 
-class _Fake$DaySummariesTable_17 extends _i1.SmartFake
-    implements _i2.$DaySummariesTable {
+class _Fake$DaySummariesTable_17 extends _i1.SmartFake implements _i2.$DaySummariesTable {
   _Fake$DaySummariesTable_17(Object parent, Invocation parentInvocation)
     : super(parent, parentInvocation);
 }
@@ -154,15 +144,9 @@ class MockMapboxService extends _i1.Mock implements _i6.MapboxService {
           as Object);
 
   @override
-  _i5.Future<bool> isPositionOutside({
-    required double? longitude,
-    required double? latitude,
-  }) =>
+  _i5.Future<bool> isPositionOutside({required double? longitude, required double? latitude}) =>
       (super.noSuchMethod(
-            Invocation.method(#isPositionOutside, [], {
-              #longitude: longitude,
-              #latitude: latitude,
-            }),
+            Invocation.method(#isPositionOutside, [], {#longitude: longitude, #latitude: latitude}),
             returnValue: _i5.Future<bool>.value(false),
           )
           as _i5.Future<bool>);
@@ -221,24 +205,20 @@ class MockTimerService extends _i1.Mock implements _i9.TimerService {
   }
 
   @override
-  void startMidnightTimer({required _i10.VoidCallback? onMidnight}) =>
-      super.noSuchMethod(
-        Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void cancel() => super.noSuchMethod(
-    Invocation.method(#cancel, []),
+  void startMidnightTimer({required _i10.VoidCallback? onMidnight}) => super.noSuchMethod(
+    Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
     returnValueForMissingStub: null,
   );
+
+  @override
+  void cancel() =>
+      super.noSuchMethod(Invocation.method(#cancel, []), returnValueForMissingStub: null);
 }
 
 /// A class which mocks [OutdoorSessionsDao].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockOutdoorSessionsDao extends _i1.Mock
-    implements _i11.OutdoorSessionsDao {
+class MockOutdoorSessionsDao extends _i1.Mock implements _i11.OutdoorSessionsDao {
   MockOutdoorSessionsDao() {
     _i1.throwOnMissingStub(this);
   }
@@ -247,10 +227,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i2.AppDatabase get attachedDatabase =>
       (super.noSuchMethod(
             Invocation.getter(#attachedDatabase),
-            returnValue: _FakeAppDatabase_1(
-              this,
-              Invocation.getter(#attachedDatabase),
-            ),
+            returnValue: _FakeAppDatabase_1(this, Invocation.getter(#attachedDatabase)),
           )
           as _i2.AppDatabase);
 
@@ -258,10 +235,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i3.DatabaseConnection get connection =>
       (super.noSuchMethod(
             Invocation.getter(#connection),
-            returnValue: _FakeDatabaseConnection_2(
-              this,
-              Invocation.getter(#connection),
-            ),
+            returnValue: _FakeDatabaseConnection_2(this, Invocation.getter(#connection)),
           )
           as _i3.DatabaseConnection);
 
@@ -269,10 +243,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i3.SqlTypes get typeMapping =>
       (super.noSuchMethod(
             Invocation.getter(#typeMapping),
-            returnValue: _i12.dummyValue<_i3.SqlTypes>(
-              this,
-              Invocation.getter(#typeMapping),
-            ),
+            returnValue: _i12.dummyValue<_i3.SqlTypes>(this, Invocation.getter(#typeMapping)),
           )
           as _i3.SqlTypes);
 
@@ -280,10 +251,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i3.DriftDatabaseOptions get options =>
       (super.noSuchMethod(
             Invocation.getter(#options),
-            returnValue: _FakeDriftDatabaseOptions_3(
-              this,
-              Invocation.getter(#options),
-            ),
+            returnValue: _FakeDriftDatabaseOptions_3(this, Invocation.getter(#options)),
           )
           as _i3.DriftDatabaseOptions);
 
@@ -291,10 +259,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i3.QueryExecutor get executor =>
       (super.noSuchMethod(
             Invocation.getter(#executor),
-            returnValue: _FakeQueryExecutor_4(
-              this,
-              Invocation.getter(#executor),
-            ),
+            returnValue: _FakeQueryExecutor_4(this, Invocation.getter(#executor)),
           )
           as _i3.QueryExecutor);
 
@@ -302,10 +267,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i4.StreamQueryStore get streamQueries =>
       (super.noSuchMethod(
             Invocation.getter(#streamQueries),
-            returnValue: _FakeStreamQueryStore_5(
-              this,
-              Invocation.getter(#streamQueries),
-            ),
+            returnValue: _FakeStreamQueryStore_5(this, Invocation.getter(#streamQueries)),
           )
           as _i4.StreamQueryStore);
 
@@ -313,10 +275,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i3.DatabaseConnectionUser get resolvedEngine =>
       (super.noSuchMethod(
             Invocation.getter(#resolvedEngine),
-            returnValue: _FakeDatabaseConnectionUser_6(
-              this,
-              Invocation.getter(#resolvedEngine),
-            ),
+            returnValue: _FakeDatabaseConnectionUser_6(this, Invocation.getter(#resolvedEngine)),
           )
           as _i3.DatabaseConnectionUser);
 
@@ -324,10 +283,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i2.$OutdoorSessionsTable get outdoorSessions =>
       (super.noSuchMethod(
             Invocation.getter(#outdoorSessions),
-            returnValue: _Fake$OutdoorSessionsTable_7(
-              this,
-              Invocation.getter(#outdoorSessions),
-            ),
+            returnValue: _Fake$OutdoorSessionsTable_7(this, Invocation.getter(#outdoorSessions)),
           )
           as _i2.$OutdoorSessionsTable);
 
@@ -343,9 +299,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
   _i5.Future<List<_i2.OutdoorSession>> getSessionsForDay(DateTime? date) =>
       (super.noSuchMethod(
             Invocation.method(#getSessionsForDay, [date]),
-            returnValue: _i5.Future<List<_i2.OutdoorSession>>.value(
-              <_i2.OutdoorSession>[],
-            ),
+            returnValue: _i5.Future<List<_i2.OutdoorSession>>.value(<_i2.OutdoorSession>[]),
           )
           as _i5.Future<List<_i2.OutdoorSession>>);
 
@@ -358,9 +312,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
           as _i5.Stream<List<_i2.OutdoorSession>>);
 
   @override
-  _i5.Stream<T> createStream<T extends Object>(
-    _i4.QueryStreamFetcher<T>? stmt,
-  ) =>
+  _i5.Stream<T> createStream<T extends Object>(_i4.QueryStreamFetcher<T>? stmt) =>
       (super.noSuchMethod(
             Invocation.method(#createStream, [stmt]),
             returnValue: _i5.Stream<T>.empty(),
@@ -371,19 +323,15 @@ class MockOutdoorSessionsDao extends _i1.Mock
   T alias<T, D>(_i3.ResultSetImplementation<T, D>? table, String? alias) =>
       (super.noSuchMethod(
             Invocation.method(#alias, [table, alias]),
-            returnValue: _i12.dummyValue<T>(
-              this,
-              Invocation.method(#alias, [table, alias]),
-            ),
+            returnValue: _i12.dummyValue<T>(this, Invocation.method(#alias, [table, alias])),
           )
           as T);
 
   @override
-  void markTablesUpdated(Iterable<_i3.TableInfo<_i3.Table, dynamic>>? tables) =>
-      super.noSuchMethod(
-        Invocation.method(#markTablesUpdated, [tables]),
-        returnValueForMissingStub: null,
-      );
+  void markTablesUpdated(Iterable<_i3.TableInfo<_i3.Table, dynamic>>? tables) => super.noSuchMethod(
+    Invocation.method(#markTablesUpdated, [tables]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void notifyUpdates(Set<_i3.TableUpdate>? updates) => super.noSuchMethod(
@@ -402,17 +350,12 @@ class MockOutdoorSessionsDao extends _i1.Mock
           as _i5.Stream<Set<_i3.TableUpdate>>);
 
   @override
-  _i5.Future<T> doWhenOpened<T>(
-    _i5.FutureOr<T> Function(_i3.QueryExecutor)? fn,
-  ) =>
+  _i5.Future<T> doWhenOpened<T>(_i5.FutureOr<T> Function(_i3.QueryExecutor)? fn) =>
       (super.noSuchMethod(
             Invocation.method(#doWhenOpened, [fn]),
             returnValue:
                 _i12.ifNotNull(
-                  _i12.dummyValueOrNull<T>(
-                    this,
-                    Invocation.method(#doWhenOpened, [fn]),
-                  ),
+                  _i12.dummyValueOrNull<T>(this, Invocation.method(#doWhenOpened, [fn])),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(this, Invocation.method(#doWhenOpened, [fn])),
@@ -420,28 +363,18 @@ class MockOutdoorSessionsDao extends _i1.Mock
           as _i5.Future<T>);
 
   @override
-  _i3.InsertStatement<T, D> into<T extends _i3.Table, D>(
-    _i3.TableInfo<T, D>? table,
-  ) =>
+  _i3.InsertStatement<T, D> into<T extends _i3.Table, D>(_i3.TableInfo<T, D>? table) =>
       (super.noSuchMethod(
             Invocation.method(#into, [table]),
-            returnValue: _FakeInsertStatement_9<T, D>(
-              this,
-              Invocation.method(#into, [table]),
-            ),
+            returnValue: _FakeInsertStatement_9<T, D>(this, Invocation.method(#into, [table])),
           )
           as _i3.InsertStatement<T, D>);
 
   @override
-  _i3.UpdateStatement<Tbl, R> update<Tbl extends _i3.Table, R>(
-    _i3.TableInfo<Tbl, R>? table,
-  ) =>
+  _i3.UpdateStatement<Tbl, R> update<Tbl extends _i3.Table, R>(_i3.TableInfo<Tbl, R>? table) =>
       (super.noSuchMethod(
             Invocation.method(#update, [table]),
-            returnValue: _FakeUpdateStatement_10<Tbl, R>(
-              this,
-              Invocation.method(#update, [table]),
-            ),
+            returnValue: _FakeUpdateStatement_10<Tbl, R>(this, Invocation.method(#update, [table])),
           )
           as _i3.UpdateStatement<Tbl, R>);
 
@@ -487,15 +420,10 @@ class MockOutdoorSessionsDao extends _i1.Mock
           as _i3.BaseSelectStatement<_i3.TypedResult>);
 
   @override
-  _i3.DeleteStatement<T, D> delete<T extends _i3.Table, D>(
-    _i3.TableInfo<T, D>? table,
-  ) =>
+  _i3.DeleteStatement<T, D> delete<T extends _i3.Table, D>(_i3.TableInfo<T, D>? table) =>
       (super.noSuchMethod(
             Invocation.method(#delete, [table]),
-            returnValue: _FakeDeleteStatement_14<T, D>(
-              this,
-              Invocation.method(#delete, [table]),
-            ),
+            returnValue: _FakeDeleteStatement_14<T, D>(this, Invocation.method(#delete, [table])),
           )
           as _i3.DeleteStatement<T, D>);
 
@@ -510,11 +438,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
             Invocation.method(
               #customUpdate,
               [query],
-              {
-                #variables: variables,
-                #updates: updates,
-                #updateKind: updateKind,
-              },
+              {#variables: variables, #updates: updates, #updateKind: updateKind},
             ),
             returnValue: _i5.Future<int>.value(0),
           )
@@ -527,11 +451,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
     Set<_i3.ResultSetImplementation<dynamic, dynamic>>? updates,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #customInsert,
-              [query],
-              {#variables: variables, #updates: updates},
-            ),
+            Invocation.method(#customInsert, [query], {#variables: variables, #updates: updates}),
             returnValue: _i5.Future<int>.value(0),
           )
           as _i5.Future<int>);
@@ -547,11 +467,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
             Invocation.method(
               #customWriteReturning,
               [query],
-              {
-                #variables: variables,
-                #updates: updates,
-                #updateKind: updateKind,
-              },
+              {#variables: variables, #updates: updates, #updateKind: updateKind},
             ),
             returnValue: _i5.Future<List<_i3.QueryRow>>.value(<_i3.QueryRow>[]),
           )
@@ -613,35 +529,20 @@ class MockOutdoorSessionsDao extends _i1.Mock
           as _i5.Future<void>);
 
   @override
-  _i5.Future<T> transaction<T>(
-    _i5.Future<T> Function()? action, {
-    bool? requireNew = false,
-  }) =>
+  _i5.Future<T> transaction<T>(_i5.Future<T> Function()? action, {bool? requireNew = false}) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #transaction,
-              [action],
-              {#requireNew: requireNew},
-            ),
+            Invocation.method(#transaction, [action], {#requireNew: requireNew}),
             returnValue:
                 _i12.ifNotNull(
                   _i12.dummyValueOrNull<T>(
                     this,
-                    Invocation.method(
-                      #transaction,
-                      [action],
-                      {#requireNew: requireNew},
-                    ),
+                    Invocation.method(#transaction, [action], {#requireNew: requireNew}),
                   ),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(
                   this,
-                  Invocation.method(
-                    #transaction,
-                    [action],
-                    {#requireNew: requireNew},
-                  ),
+                  Invocation.method(#transaction, [action], {#requireNew: requireNew}),
                 ),
           )
           as _i5.Future<T>);
@@ -652,16 +553,10 @@ class MockOutdoorSessionsDao extends _i1.Mock
             Invocation.method(#exclusively, [action]),
             returnValue:
                 _i12.ifNotNull(
-                  _i12.dummyValueOrNull<T>(
-                    this,
-                    Invocation.method(#exclusively, [action]),
-                  ),
+                  _i12.dummyValueOrNull<T>(this, Invocation.method(#exclusively, [action])),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
-                _FakeFuture_8<T>(
-                  this,
-                  Invocation.method(#exclusively, [action]),
-                ),
+                _FakeFuture_8<T>(this, Invocation.method(#exclusively, [action])),
           )
           as _i5.Future<T>);
 
@@ -680,30 +575,18 @@ class MockOutdoorSessionsDao extends _i1.Mock
     required _i3.QueryInterceptor? interceptor,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #runWithInterceptor,
-              [action],
-              {#interceptor: interceptor},
-            ),
+            Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
             returnValue:
                 _i12.ifNotNull(
                   _i12.dummyValueOrNull<T>(
                     this,
-                    Invocation.method(
-                      #runWithInterceptor,
-                      [action],
-                      {#interceptor: interceptor},
-                    ),
+                    Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
                   ),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(
                   this,
-                  Invocation.method(
-                    #runWithInterceptor,
-                    [action],
-                    {#interceptor: interceptor},
-                  ),
+                  Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
                 ),
           )
           as _i5.Future<T>);
@@ -725,10 +608,7 @@ class MockOutdoorSessionsDao extends _i1.Mock
               Invocation.method(
                 #$write,
                 [component],
-                {
-                  #hasMultipleTables: hasMultipleTables,
-                  #startIndex: startIndex,
-                },
+                {#hasMultipleTables: hasMultipleTables, #startIndex: startIndex},
               ),
             ),
           )
@@ -741,18 +621,10 @@ class MockOutdoorSessionsDao extends _i1.Mock
     int? startIndex,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #$writeInsertable,
-              [table, insertable],
-              {#startIndex: startIndex},
-            ),
+            Invocation.method(#$writeInsertable, [table, insertable], {#startIndex: startIndex}),
             returnValue: _FakeGenerationContext_16(
               this,
-              Invocation.method(
-                #$writeInsertable,
-                [table, insertable],
-                {#startIndex: startIndex},
-              ),
+              Invocation.method(#$writeInsertable, [table, insertable], {#startIndex: startIndex}),
             ),
           )
           as _i3.GenerationContext);
@@ -790,10 +662,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i2.AppDatabase get attachedDatabase =>
       (super.noSuchMethod(
             Invocation.getter(#attachedDatabase),
-            returnValue: _FakeAppDatabase_1(
-              this,
-              Invocation.getter(#attachedDatabase),
-            ),
+            returnValue: _FakeAppDatabase_1(this, Invocation.getter(#attachedDatabase)),
           )
           as _i2.AppDatabase);
 
@@ -801,10 +670,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i3.DatabaseConnection get connection =>
       (super.noSuchMethod(
             Invocation.getter(#connection),
-            returnValue: _FakeDatabaseConnection_2(
-              this,
-              Invocation.getter(#connection),
-            ),
+            returnValue: _FakeDatabaseConnection_2(this, Invocation.getter(#connection)),
           )
           as _i3.DatabaseConnection);
 
@@ -812,10 +678,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i3.SqlTypes get typeMapping =>
       (super.noSuchMethod(
             Invocation.getter(#typeMapping),
-            returnValue: _i12.dummyValue<_i3.SqlTypes>(
-              this,
-              Invocation.getter(#typeMapping),
-            ),
+            returnValue: _i12.dummyValue<_i3.SqlTypes>(this, Invocation.getter(#typeMapping)),
           )
           as _i3.SqlTypes);
 
@@ -823,10 +686,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i3.DriftDatabaseOptions get options =>
       (super.noSuchMethod(
             Invocation.getter(#options),
-            returnValue: _FakeDriftDatabaseOptions_3(
-              this,
-              Invocation.getter(#options),
-            ),
+            returnValue: _FakeDriftDatabaseOptions_3(this, Invocation.getter(#options)),
           )
           as _i3.DriftDatabaseOptions);
 
@@ -834,10 +694,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i3.QueryExecutor get executor =>
       (super.noSuchMethod(
             Invocation.getter(#executor),
-            returnValue: _FakeQueryExecutor_4(
-              this,
-              Invocation.getter(#executor),
-            ),
+            returnValue: _FakeQueryExecutor_4(this, Invocation.getter(#executor)),
           )
           as _i3.QueryExecutor);
 
@@ -845,10 +702,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i4.StreamQueryStore get streamQueries =>
       (super.noSuchMethod(
             Invocation.getter(#streamQueries),
-            returnValue: _FakeStreamQueryStore_5(
-              this,
-              Invocation.getter(#streamQueries),
-            ),
+            returnValue: _FakeStreamQueryStore_5(this, Invocation.getter(#streamQueries)),
           )
           as _i4.StreamQueryStore);
 
@@ -856,10 +710,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i3.DatabaseConnectionUser get resolvedEngine =>
       (super.noSuchMethod(
             Invocation.getter(#resolvedEngine),
-            returnValue: _FakeDatabaseConnectionUser_6(
-              this,
-              Invocation.getter(#resolvedEngine),
-            ),
+            returnValue: _FakeDatabaseConnectionUser_6(this, Invocation.getter(#resolvedEngine)),
           )
           as _i3.DatabaseConnectionUser);
 
@@ -867,10 +718,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   _i2.$DaySummariesTable get daySummaries =>
       (super.noSuchMethod(
             Invocation.getter(#daySummaries),
-            returnValue: _Fake$DaySummariesTable_17(
-              this,
-              Invocation.getter(#daySummaries),
-            ),
+            returnValue: _Fake$DaySummariesTable_17(this, Invocation.getter(#daySummaries)),
           )
           as _i2.$DaySummariesTable);
 
@@ -916,9 +764,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
           as _i5.Stream<int>);
 
   @override
-  _i5.Stream<T> createStream<T extends Object>(
-    _i4.QueryStreamFetcher<T>? stmt,
-  ) =>
+  _i5.Stream<T> createStream<T extends Object>(_i4.QueryStreamFetcher<T>? stmt) =>
       (super.noSuchMethod(
             Invocation.method(#createStream, [stmt]),
             returnValue: _i5.Stream<T>.empty(),
@@ -929,19 +775,15 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
   T alias<T, D>(_i3.ResultSetImplementation<T, D>? table, String? alias) =>
       (super.noSuchMethod(
             Invocation.method(#alias, [table, alias]),
-            returnValue: _i12.dummyValue<T>(
-              this,
-              Invocation.method(#alias, [table, alias]),
-            ),
+            returnValue: _i12.dummyValue<T>(this, Invocation.method(#alias, [table, alias])),
           )
           as T);
 
   @override
-  void markTablesUpdated(Iterable<_i3.TableInfo<_i3.Table, dynamic>>? tables) =>
-      super.noSuchMethod(
-        Invocation.method(#markTablesUpdated, [tables]),
-        returnValueForMissingStub: null,
-      );
+  void markTablesUpdated(Iterable<_i3.TableInfo<_i3.Table, dynamic>>? tables) => super.noSuchMethod(
+    Invocation.method(#markTablesUpdated, [tables]),
+    returnValueForMissingStub: null,
+  );
 
   @override
   void notifyUpdates(Set<_i3.TableUpdate>? updates) => super.noSuchMethod(
@@ -960,17 +802,12 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
           as _i5.Stream<Set<_i3.TableUpdate>>);
 
   @override
-  _i5.Future<T> doWhenOpened<T>(
-    _i5.FutureOr<T> Function(_i3.QueryExecutor)? fn,
-  ) =>
+  _i5.Future<T> doWhenOpened<T>(_i5.FutureOr<T> Function(_i3.QueryExecutor)? fn) =>
       (super.noSuchMethod(
             Invocation.method(#doWhenOpened, [fn]),
             returnValue:
                 _i12.ifNotNull(
-                  _i12.dummyValueOrNull<T>(
-                    this,
-                    Invocation.method(#doWhenOpened, [fn]),
-                  ),
+                  _i12.dummyValueOrNull<T>(this, Invocation.method(#doWhenOpened, [fn])),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(this, Invocation.method(#doWhenOpened, [fn])),
@@ -978,28 +815,18 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
           as _i5.Future<T>);
 
   @override
-  _i3.InsertStatement<T, D> into<T extends _i3.Table, D>(
-    _i3.TableInfo<T, D>? table,
-  ) =>
+  _i3.InsertStatement<T, D> into<T extends _i3.Table, D>(_i3.TableInfo<T, D>? table) =>
       (super.noSuchMethod(
             Invocation.method(#into, [table]),
-            returnValue: _FakeInsertStatement_9<T, D>(
-              this,
-              Invocation.method(#into, [table]),
-            ),
+            returnValue: _FakeInsertStatement_9<T, D>(this, Invocation.method(#into, [table])),
           )
           as _i3.InsertStatement<T, D>);
 
   @override
-  _i3.UpdateStatement<Tbl, R> update<Tbl extends _i3.Table, R>(
-    _i3.TableInfo<Tbl, R>? table,
-  ) =>
+  _i3.UpdateStatement<Tbl, R> update<Tbl extends _i3.Table, R>(_i3.TableInfo<Tbl, R>? table) =>
       (super.noSuchMethod(
             Invocation.method(#update, [table]),
-            returnValue: _FakeUpdateStatement_10<Tbl, R>(
-              this,
-              Invocation.method(#update, [table]),
-            ),
+            returnValue: _FakeUpdateStatement_10<Tbl, R>(this, Invocation.method(#update, [table])),
           )
           as _i3.UpdateStatement<Tbl, R>);
 
@@ -1045,15 +872,10 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
           as _i3.BaseSelectStatement<_i3.TypedResult>);
 
   @override
-  _i3.DeleteStatement<T, D> delete<T extends _i3.Table, D>(
-    _i3.TableInfo<T, D>? table,
-  ) =>
+  _i3.DeleteStatement<T, D> delete<T extends _i3.Table, D>(_i3.TableInfo<T, D>? table) =>
       (super.noSuchMethod(
             Invocation.method(#delete, [table]),
-            returnValue: _FakeDeleteStatement_14<T, D>(
-              this,
-              Invocation.method(#delete, [table]),
-            ),
+            returnValue: _FakeDeleteStatement_14<T, D>(this, Invocation.method(#delete, [table])),
           )
           as _i3.DeleteStatement<T, D>);
 
@@ -1068,11 +890,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
             Invocation.method(
               #customUpdate,
               [query],
-              {
-                #variables: variables,
-                #updates: updates,
-                #updateKind: updateKind,
-              },
+              {#variables: variables, #updates: updates, #updateKind: updateKind},
             ),
             returnValue: _i5.Future<int>.value(0),
           )
@@ -1085,11 +903,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
     Set<_i3.ResultSetImplementation<dynamic, dynamic>>? updates,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #customInsert,
-              [query],
-              {#variables: variables, #updates: updates},
-            ),
+            Invocation.method(#customInsert, [query], {#variables: variables, #updates: updates}),
             returnValue: _i5.Future<int>.value(0),
           )
           as _i5.Future<int>);
@@ -1105,11 +919,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
             Invocation.method(
               #customWriteReturning,
               [query],
-              {
-                #variables: variables,
-                #updates: updates,
-                #updateKind: updateKind,
-              },
+              {#variables: variables, #updates: updates, #updateKind: updateKind},
             ),
             returnValue: _i5.Future<List<_i3.QueryRow>>.value(<_i3.QueryRow>[]),
           )
@@ -1171,35 +981,20 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
           as _i5.Future<void>);
 
   @override
-  _i5.Future<T> transaction<T>(
-    _i5.Future<T> Function()? action, {
-    bool? requireNew = false,
-  }) =>
+  _i5.Future<T> transaction<T>(_i5.Future<T> Function()? action, {bool? requireNew = false}) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #transaction,
-              [action],
-              {#requireNew: requireNew},
-            ),
+            Invocation.method(#transaction, [action], {#requireNew: requireNew}),
             returnValue:
                 _i12.ifNotNull(
                   _i12.dummyValueOrNull<T>(
                     this,
-                    Invocation.method(
-                      #transaction,
-                      [action],
-                      {#requireNew: requireNew},
-                    ),
+                    Invocation.method(#transaction, [action], {#requireNew: requireNew}),
                   ),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(
                   this,
-                  Invocation.method(
-                    #transaction,
-                    [action],
-                    {#requireNew: requireNew},
-                  ),
+                  Invocation.method(#transaction, [action], {#requireNew: requireNew}),
                 ),
           )
           as _i5.Future<T>);
@@ -1210,16 +1005,10 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
             Invocation.method(#exclusively, [action]),
             returnValue:
                 _i12.ifNotNull(
-                  _i12.dummyValueOrNull<T>(
-                    this,
-                    Invocation.method(#exclusively, [action]),
-                  ),
+                  _i12.dummyValueOrNull<T>(this, Invocation.method(#exclusively, [action])),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
-                _FakeFuture_8<T>(
-                  this,
-                  Invocation.method(#exclusively, [action]),
-                ),
+                _FakeFuture_8<T>(this, Invocation.method(#exclusively, [action])),
           )
           as _i5.Future<T>);
 
@@ -1238,30 +1027,18 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
     required _i3.QueryInterceptor? interceptor,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #runWithInterceptor,
-              [action],
-              {#interceptor: interceptor},
-            ),
+            Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
             returnValue:
                 _i12.ifNotNull(
                   _i12.dummyValueOrNull<T>(
                     this,
-                    Invocation.method(
-                      #runWithInterceptor,
-                      [action],
-                      {#interceptor: interceptor},
-                    ),
+                    Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
                   ),
                   (T v) => _i5.Future<T>.value(v),
                 ) ??
                 _FakeFuture_8<T>(
                   this,
-                  Invocation.method(
-                    #runWithInterceptor,
-                    [action],
-                    {#interceptor: interceptor},
-                  ),
+                  Invocation.method(#runWithInterceptor, [action], {#interceptor: interceptor}),
                 ),
           )
           as _i5.Future<T>);
@@ -1283,10 +1060,7 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
               Invocation.method(
                 #$write,
                 [component],
-                {
-                  #hasMultipleTables: hasMultipleTables,
-                  #startIndex: startIndex,
-                },
+                {#hasMultipleTables: hasMultipleTables, #startIndex: startIndex},
               ),
             ),
           )
@@ -1299,18 +1073,10 @@ class MockDaySummariesDao extends _i1.Mock implements _i13.DaySummariesDao {
     int? startIndex,
   }) =>
       (super.noSuchMethod(
-            Invocation.method(
-              #$writeInsertable,
-              [table, insertable],
-              {#startIndex: startIndex},
-            ),
+            Invocation.method(#$writeInsertable, [table, insertable], {#startIndex: startIndex}),
             returnValue: _FakeGenerationContext_16(
               this,
-              Invocation.method(
-                #$writeInsertable,
-                [table, insertable],
-                {#startIndex: startIndex},
-              ),
+              Invocation.method(#$writeInsertable, [table, insertable], {#startIndex: startIndex}),
             ),
           )
           as _i3.GenerationContext);

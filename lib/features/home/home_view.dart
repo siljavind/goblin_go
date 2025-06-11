@@ -13,8 +13,8 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final settingsVm = context.watch<SettingsViewModel>();
     final vm = context.watch<HomeViewModel>();
-    final cs = Theme.of(context).colorScheme;
-    final titleImage = cs.brightness == Brightness.dark
+    final colorScheme = Theme.of(context).colorScheme;
+    final titleImage = colorScheme.brightness == Brightness.dark
         ? 'assets/title_dark.png'
         : 'assets/title_light.png';
 
@@ -31,31 +31,30 @@ class HomeView extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
-          Expanded(
-            child: PaddedCard(
-              title: 'Daily Progress',
-              bigTitle: true,
-              bottomText: minutesLeft > 0
-                  ? '$minutesLeft minutes until daily goal is reached!'
-                  : 'Daily goal reached!',
-              child: SizedBox(
-                height: 250,
-                width: 250,
-                child: LiquidCircularProgressIndicator(
-                  value: progress,
-                  valueColor: AlwaysStoppedAnimation(cs.primary),
-                  borderColor: cs.primary,
-                  borderWidth: 4.0,
-                  direction: Axis.vertical,
-                  center: Text(
-                    '${(progress * 100).toInt()} %',
-                    style: Theme.of(context).textTheme.displayMedium,
-                  ),
+          PaddedCard(
+            title: 'Daily Progress',
+            bigTitle: true,
+            bottomText: minutesLeft > 0
+                ? '$minutesLeft minutes until daily goal is reached!'
+                : 'Daily goal reached!',
+            child: SizedBox(
+              height: 250,
+              width: 250,
+              child: LiquidCircularProgressIndicator(
+                value: progress,
+                valueColor: AlwaysStoppedAnimation(colorScheme.primary),
+                borderColor: colorScheme.primary,
+                backgroundColor: colorScheme.surfaceContainer,
+                borderWidth: 4.0,
+                direction: Axis.vertical,
+                center: Text(
+                  '${(progress * 100).toInt()} %',
+                  style: Theme.of(context).textTheme.displayMedium,
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 12),
           Row(
             children: [
               Expanded(
