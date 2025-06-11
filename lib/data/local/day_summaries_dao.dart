@@ -9,11 +9,11 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
   DaySummariesDao(super.db);
 
   /// Insert or update (upsert) a summary.
-  Future<void> upsertDaySummary(DaySummariesCompanion entry) async =>
+  Future<void> upsertDaySummary(DaySummariesCompanion entry) =>
       into(daySummaries).insertOnConflictUpdate(entry);
 
   /// Get a summary by its dateId.
-  Future<DaySummary?> getByDateId(int dateId) async =>
+  Future<DaySummary?> getByDateId(int dateId) =>
       (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull();
 
   Future<int> getTotalMinutesForDay(DateTime date) async {

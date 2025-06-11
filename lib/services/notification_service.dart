@@ -13,6 +13,7 @@ class NotificationService {
   Timer? _timer;
 
   static const notificationChannelId = 'goblin_goal_reminder';
+  static const notificationId = 1001;
 
   NotificationService(this._settings, this._summariesDao);
 
@@ -57,7 +58,7 @@ class NotificationService {
     if (done >= goal) return;
 
     final now = DateTime.now();
-    if (now.hour < 10 || now.hour >= 24) return;
+    if (now.hour <= 9) return;
 
     final user = _settings.username.isNotEmpty ? _settings.username : "Goblin";
     final pct = done / goal;
@@ -85,7 +86,7 @@ class NotificationService {
 
     final msg = pool[_rng.nextInt(pool.length)];
     await _fln.show(
-      1001,
+      notificationId,
       "$user, your Goblin Go reminder",
       msg,
       NotificationDetails(
