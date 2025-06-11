@@ -50,7 +50,11 @@ class PaddedCard extends StatelessWidget {
             if (bottomText != null) ...[
               const SizedBox(height: 12),
               Divider(),
-              Text(bottomText!, style: Theme.of(context).textTheme.titleMedium),
+              Text(
+                bottomText!,
+                style: Theme.of(context).textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
             ],
           ],
         ),

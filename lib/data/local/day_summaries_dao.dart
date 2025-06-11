@@ -16,6 +16,7 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
   Future<DaySummary?> getByDateId(int dateId) =>
       (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull();
 
+  /// Get the total minutes for a given date.
   Future<int> getTotalMinutesForDay(DateTime date) async {
     int dateId = _dateToDateId(date);
     return (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull().then(
@@ -26,14 +27,6 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
   /// Watch (stream) the summary for a given dateId.
   Stream<DaySummary?> watchByDateId(int dateId) =>
       (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).watchSingleOrNull();
-
-  /// Watch (stream) total XP (across all days).
-  Stream<int> watchTotalXp() =>
-      select(daySummaries).watch().map((rows) => rows.fold<int>(0, (sum, r) => sum + r.totalXp));
-
-  /// Watch (stream) total minutes for a given day.
-  Stream<int> watchTotalMinutesForDay(int dateId) =>
-      watchByDateId(dateId).map((row) => row?.totalMinutes ?? 0);
 }
 
 //TODO Refactor usage in other places to send dates, not dateIds

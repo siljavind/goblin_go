@@ -5,7 +5,6 @@ import '../shared/padded_card.dart';
 import 'settings_viewmodel.dart';
 
 // TODO: Reset progress for the day if user changes daily goal?
-// TODO: Add tests
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 

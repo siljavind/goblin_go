@@ -2,7 +2,7 @@
 // in goblin_go/test/session_tracker_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes, override_on_non_overriding_member
+// ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 import 'dart:ui' as _i7;
 
@@ -27,7 +27,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeObject_0 extends _i1.SmartFake implements Object {
-  _FakeObject_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
+  _FakeObject_0(Object parent, Invocation parentInvocation)
+    : super(parent, parentInvocation);
 }
 
 /// A class which mocks [MapboxService].
@@ -47,9 +48,15 @@ class MockMapboxService extends _i1.Mock implements _i2.MapboxService {
           as Object);
 
   @override
-  _i3.Future<bool> isPositionOutside({required double? longitude, required double? latitude}) =>
+  _i3.Future<bool> isPositionOutside({
+    required double? longitude,
+    required double? latitude,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#isPositionOutside, [], {#longitude: longitude, #latitude: latitude}),
+            Invocation.method(#isPositionOutside, [], {
+              #longitude: longitude,
+              #latitude: latitude,
+            }),
             returnValue: _i3.Future<bool>.value(false),
           )
           as _i3.Future<bool>);
@@ -75,15 +82,6 @@ class MockBackgroundService extends _i1.Mock implements _i4.BackgroundService {
   _i3.Future<void> init() =>
       (super.noSuchMethod(
             Invocation.method(#init, []),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> initBackgroundService() =>
-      (super.noSuchMethod(
-            Invocation.method(#initBackgroundService, []),
             returnValue: _i3.Future<void>.value(),
             returnValueForMissingStub: _i3.Future<void>.value(),
           )
@@ -117,12 +115,15 @@ class MockTimerService extends _i1.Mock implements _i6.TimerService {
   }
 
   @override
-  void startMidnightTimer({required _i7.VoidCallback? onMidnight}) => super.noSuchMethod(
-    Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
-    returnValueForMissingStub: null,
-  );
+  void startMidnightTimer({required _i7.VoidCallback? onMidnight}) =>
+      super.noSuchMethod(
+        Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
+        returnValueForMissingStub: null,
+      );
 
   @override
-  void cancel() =>
-      super.noSuchMethod(Invocation.method(#cancel, []), returnValueForMissingStub: null);
+  void cancel() => super.noSuchMethod(
+    Invocation.method(#cancel, []),
+    returnValueForMissingStub: null,
+  );
 }
