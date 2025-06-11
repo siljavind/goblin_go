@@ -4,10 +4,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:goblin_go/data/local/app_database.dart';
 import 'package:goblin_go/data/local/day_summaries_dao.dart';
 import 'package:goblin_go/data/local/outdoor_sessions_dao.dart';
-import 'package:goblin_go/services/background_service.dart';
-import 'package:goblin_go/services/mapbox_service.dart';
-import 'package:goblin_go/services/session_tracker_service.dart';
-import 'package:goblin_go/services/timer_service.dart';
+import 'package:goblin_go/services/background/background_service.dart';
+import 'package:goblin_go/services/tracking/mapbox_service.dart';
+import 'package:goblin_go/services/tracking/session_tracker_service.dart';
+import 'package:goblin_go/services/tracking/timer_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 

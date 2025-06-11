@@ -9,12 +9,19 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
   DaySummariesDao(super.db);
 
   /// Insert or update (upsert) a summary.
-  Future<void> upsertDaySummary(DaySummariesCompanion entry) =>
+  Future<void> upsertDaySummary(DaySummariesCompanion entry) async =>
       into(daySummaries).insertOnConflictUpdate(entry);
 
   /// Get a summary by its dateId.
-  Future<DaySummary?> getByDateId(int dateId) =>
+  Future<DaySummary?> getByDateId(int dateId) async =>
       (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull();
+
+  Future<int> getTotalMinutesForDay(DateTime date) async {
+    int dateId = _dateToDateId(date);
+    return (select(daySummaries)..where((tbl) => tbl.dateId.equals(dateId))).getSingleOrNull().then(
+      (summary) => summary?.totalMinutes ?? 0,
+    );
+  }
 
   /// Watch (stream) the summary for a given dateId.
   Stream<DaySummary?> watchByDateId(int dateId) =>
@@ -28,3 +35,6 @@ class DaySummariesDao extends DatabaseAccessor<AppDatabase> with _$DaySummariesD
   Stream<int> watchTotalMinutesForDay(int dateId) =>
       watchByDateId(dateId).map((row) => row?.totalMinutes ?? 0);
 }
+
+//TODO Refactor usage in other places to send dates, not dateIds
+int _dateToDateId(DateTime d) => d.year * 10000 + d.month * 100 + d.day;

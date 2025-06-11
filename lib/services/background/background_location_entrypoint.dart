@@ -1,13 +1,15 @@
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:goblin_go/constants.dart';
+import 'package:goblin_go/utils/constants.dart';
 
 final androidSettings = AndroidSettings(
+  accuracy: LocationAccuracy.bestForNavigation,
   distanceFilter: 0,
   intervalDuration: const Duration(seconds: 60),
 );
 
 final appleSettings = AppleSettings(
+  accuracy: LocationAccuracy.bestForNavigation,
   distanceFilter: 1,
   activityType: ActivityType.fitness,
   pauseLocationUpdatesAutomatically: true,

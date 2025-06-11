@@ -1,16 +1,16 @@
 // lib/app_shell.dart
 import 'package:drift_db_viewer/drift_db_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:goblin_go/services/background_service.dart';
-import 'package:goblin_go/services/session_tracker_service.dart';
+import 'package:goblin_go/services/background/background_service.dart';
+import 'package:goblin_go/services/tracking/session_tracker_service.dart';
 import 'package:provider/provider.dart';
 
 import 'data/local/app_database.dart';
 import 'features/history/history_view.dart';
 import 'features/home/home_view.dart';
 import 'features/onboarding/onboarding_dialog.dart';
-import 'features/onboarding/onboarding_state.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
+import 'features/onboarding/utils/onboarding_state.dart';
 import 'features/settings/settings_view.dart';
 
 class AppShell extends StatefulWidget {
@@ -49,7 +49,7 @@ class _AppShellState extends State<AppShell> {
     final tracker = context.read<SessionTrackerService>();
 
     await bg.init();
-    tracker.startTracking();
+    tracker.startListening();
   }
 
   @override

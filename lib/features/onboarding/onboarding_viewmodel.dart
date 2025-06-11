@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'onboarding_state.dart';
+import 'utils/onboarding_state.dart';
 
 /// ViewModel for managing onboarding location permissions.
 ///
