@@ -22,8 +22,8 @@ class AppShell extends StatefulWidget {
 
 class _AppShellState extends State<AppShell> {
   bool _dialogShown = false;
-  int _selectedPageIndex = 0;
-  final _pages = const [HomeView(), SettingsView()]; //HistoryView(), , DbView()
+  int _selectedPageIndex = 1;
+  final _pages = const [HistoryView(), HomeView(), SettingsView()]; //, DbView()
 
   //TODO : Refactor to use a more robust state management solution
   @override
@@ -72,7 +72,7 @@ class _AppShellState extends State<AppShell> {
       selectedIndex: _selectedPageIndex,
       onDestinationSelected: (i) => setState(() => _selectedPageIndex = i),
       destinations: const [
-        //NavigationDestination(icon: Icon(Icons.calendar_today), label: 'History'),
+        NavigationDestination(icon: Icon(Icons.calendar_today), label: 'History'),
         NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
         NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
         // NavigationDestination(icon: Icon(Icons.developer_mode), label: 'db view'),

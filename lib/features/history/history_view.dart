@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:goblin_go/features/history/watering_button.dart';
+import 'package:liquid_progress_indicator_v2/liquid_progress_indicator.dart';
+
+import 'custom_button.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({super.key});
@@ -12,7 +16,19 @@ class HistoryView extends StatelessWidget {
         elevation: 2,
         toolbarHeight: 80,
       ),
-      body: const Center(child: Text('History placeholder', style: TextStyle(fontSize: 18))),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            FacetedProgressButton(
+              progress: 0.6,
+              onPressed: () => print('tapped'),
+            ),
+            WateringCanProgressButton(progress: 0.6, onPressed: () => print('tapped'))
+          ],
+        ),
+      ),
     );
   }
 }
