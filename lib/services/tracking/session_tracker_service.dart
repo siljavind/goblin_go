@@ -9,11 +9,11 @@ import 'package:goblin_go/services/settings_service.dart';
 import 'package:goblin_go/services/tracking/timer_service.dart';
 
 import '../../data/local/app_database.dart';
-import 'mapbox_service.dart';
+import 'mapbox_client.dart';
 
 class SessionTrackerService {
   final BackgroundService backgroundService;
-  final MapboxService mapboxService;
+  final MapboxClient mapboxService;
   final TimerService timerService;
   final OutdoorSessionsDao sessionsDao;
   final DaySummariesDao summariesDao;

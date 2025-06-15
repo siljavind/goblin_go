@@ -5,7 +5,7 @@ import 'package:goblin_go/features/settings/settings_viewmodel.dart';
 import 'package:goblin_go/services/background/background_service.dart';
 import 'package:goblin_go/services/notification_service.dart';
 import 'package:goblin_go/services/settings_service.dart';
-import 'package:goblin_go/services/tracking/mapbox_service.dart';
+import 'package:goblin_go/services/tracking/mapbox_client.dart';
 import 'package:goblin_go/services/tracking/session_tracker_service.dart';
 import 'package:goblin_go/services/tracking/timer_service.dart';
 import 'package:provider/provider.dart';
@@ -38,12 +38,12 @@ class GoblinGoApp extends StatelessWidget {
           dispose: (_, s) => s.dispose(),
           lazy: false,
         ),
-        Provider<MapboxService>(create: (_) => MapboxService()),
+        Provider<MapboxClient>(create: (_) => MapboxClient()),
         Provider<TimerService>(create: (_) => TimerService()),
 
         ProxyProvider5<
           BackgroundService,
-          MapboxService,
+          MapboxClient,
           TimerService,
           OutdoorSessionsDao,
           DaySummariesDao,
