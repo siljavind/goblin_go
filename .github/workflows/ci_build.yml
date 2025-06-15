@@ -18,21 +18,22 @@ jobs:
           channel: stable
 
       - name: Create .env file with Mapbox token
-        run: |
-          echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
+        run: echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
 
       - name: Install dependencies
         run: flutter pub get
 
       - name: Decode keystore
         run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/goblingo-release-key.jks
-          
+
       - name: Create key.properties
         run: |
-            echo "storeFile=goblingo-release-key.jks" > android/key.properties
-            echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
-            echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
-            echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+          cat <<EOF > android/key.properties
+          storeFile=goblingo-release-key.jks
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          EOF
 
       - name: Build Android APK
         run: flutter build apk --release --split-per-abi
@@ -55,12 +56,25 @@ jobs:
         with:
           channel: stable
 
-      - name: Create .env file with Mapbox token
+      - name: Set up Ruby (for CocoaPods)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+
+      - name: Install CocoaPods
         run: |
-          echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
+          sudo gem install cocoapods
+          cd ios
+          pod install
+
+      - name: Create .env file with Mapbox token
+        run: echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Clean build (optional but helps avoid iOS edge cases)
+        run: flutter clean
 
       - name: Build iOS (no codesign)
         run: flutter build ipa --no-codesign
