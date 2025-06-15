@@ -28,3 +28,4 @@ doc/api/
 
 android/app/goblingo-release-key.jks
 android/key.properties
+ios/Pods/
