@@ -8,7 +8,7 @@ import 'dart:ui' as _i7;
 
 import 'package:geolocator/geolocator.dart' as _i5;
 import 'package:goblin_go/services/background/background_service.dart' as _i4;
-import 'package:goblin_go/services/tracking/mapbox_service.dart' as _i2;
+import 'package:goblin_go/services/tracking/mapbox_client.dart' as _i2;
 import 'package:goblin_go/services/tracking/timer_service.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -27,14 +27,13 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: subtype_of_sealed_class
 
 class _FakeObject_0 extends _i1.SmartFake implements Object {
-  _FakeObject_0(Object parent, Invocation parentInvocation)
-    : super(parent, parentInvocation);
+  _FakeObject_0(Object parent, Invocation parentInvocation) : super(parent, parentInvocation);
 }
 
 /// A class which mocks [MapboxService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMapboxService extends _i1.Mock implements _i2.MapboxService {
+class MockMapboxService extends _i1.Mock implements _i2.MapboxClient {
   MockMapboxService() {
     _i1.throwOnMissingStub(this);
   }
@@ -48,15 +47,9 @@ class MockMapboxService extends _i1.Mock implements _i2.MapboxService {
           as Object);
 
   @override
-  _i3.Future<bool> isPositionOutside({
-    required double? longitude,
-    required double? latitude,
-  }) =>
+  _i3.Future<bool> isPositionOutside({required double? longitude, required double? latitude}) =>
       (super.noSuchMethod(
-            Invocation.method(#isPositionOutside, [], {
-              #longitude: longitude,
-              #latitude: latitude,
-            }),
+            Invocation.method(#isPositionOutside, [], {#longitude: longitude, #latitude: latitude}),
             returnValue: _i3.Future<bool>.value(false),
           )
           as _i3.Future<bool>);
@@ -115,15 +108,12 @@ class MockTimerService extends _i1.Mock implements _i6.TimerService {
   }
 
   @override
-  void startMidnightTimer({required _i7.VoidCallback? onMidnight}) =>
-      super.noSuchMethod(
-        Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void cancel() => super.noSuchMethod(
-    Invocation.method(#cancel, []),
+  void startMidnightTimer({required _i7.VoidCallback? onMidnight}) => super.noSuchMethod(
+    Invocation.method(#startMidnightTimer, [], {#onMidnight: onMidnight}),
     returnValueForMissingStub: null,
   );
+
+  @override
+  void cancel() =>
+      super.noSuchMethod(Invocation.method(#cancel, []), returnValueForMissingStub: null);
 }

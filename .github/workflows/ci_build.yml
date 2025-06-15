@@ -24,6 +24,16 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Decode keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/goblingo-release-key.jks
+          
+      - name: Create key.properties
+        run: |
+            echo "storeFile=goblingo-release-key.jks" > android/key.properties
+            echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" >> android/key.properties
+            echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/key.properties
+            echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/key.properties
+
       - name: Build Android APK
         run: flutter build apk --release --split-per-abi
 
@@ -53,7 +63,7 @@ jobs:
         run: flutter pub get
 
       - name: Build iOS (no codesign)
-        run: flutter build ios --release --no-codesign
+        run: flutter build ipa --no-codesign
 
       - name: Upload iOS IPA artifact
         uses: actions/upload-artifact@v4

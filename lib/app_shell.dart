@@ -6,7 +6,6 @@ import 'package:goblin_go/services/tracking/session_tracker_service.dart';
 import 'package:provider/provider.dart';
 
 import 'data/local/app_database.dart';
-import 'features/history/history_view.dart';
 import 'features/home/home_view.dart';
 import 'features/onboarding/onboarding_dialog.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';
@@ -22,8 +21,8 @@ class AppShell extends StatefulWidget {
 
 class _AppShellState extends State<AppShell> {
   bool _dialogShown = false;
-  int _selectedPageIndex = 1;
-  final _pages = const [HistoryView(), HomeView(), SettingsView(), DbView()];
+  int _selectedPageIndex = 0;
+  final _pages = const [HomeView(), SettingsView()]; //HistoryView(), , DbView()
 
   //TODO : Refactor to use a more robust state management solution
   @override
