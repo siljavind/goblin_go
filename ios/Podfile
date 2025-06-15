@@ -1,6 +1,6 @@
 # ios/Podfile
 
-platform :ios, '13.0'
+platform :ios, '12.0'
 
 ENV['FLUTTER_ROOT'] ||= File.expand_path('../../flutter', __FILE__)
 load File.join(ENV['FLUTTER_ROOT'], 'packages', 'flutter_tools', 'bin', 'podhelper.rb')
