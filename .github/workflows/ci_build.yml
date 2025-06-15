@@ -44,45 +44,46 @@ jobs:
           name: goblingo-android-apk
           path: build/app/outputs/flutter-apk/*.apk
 
-  build_ios:
-    name: Build iOS IPA
-    runs-on: macos-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - name: Set up Ruby (for CocoaPods)
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.1'
-
-      - name: Clean pods and build
-        run: |
-          flutter clean
-          cd ios
-          rm -rf Pods Podfile.lock
-          pod install
-          cd ..
-
-      - name: Create .env file with Mapbox token
-        run: echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Clean build (optional but helps avoid iOS edge cases)
-        run: flutter clean
-
-      - name: Build iOS (no codesign)
-        run: flutter build ipa --no-codesign
-
-      - name: Upload iOS IPA artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: goblingo-ios-ipa
-          path: build/ios/ipa/*.ipa
+#TODO: Uncomment the iOS build section when access to Apple hardware is available.
+#  build_ios:
+#    name: Build iOS IPA
+#    runs-on: macos-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v3
+#
+#      - name: Set up Flutter SDK
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
+#
+#      - name: Set up Ruby (for CocoaPods)
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: '3.1'
+#
+#      - name: Clean pods and build
+#        run: |
+#          flutter clean
+#          cd ios
+#          rm -rf Pods Podfile.lock
+#          pod install
+#          cd ..
+#
+#      - name: Create .env file with Mapbox token
+#        run: echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
+#
+#      - name: Install dependencies
+#        run: flutter pub get
+#
+#      - name: Clean build (optional but helps avoid iOS edge cases)
+#        run: flutter clean
+#
+#      - name: Build iOS (no codesign)
+#        run: flutter build ipa --no-codesign
+#
+#      - name: Upload iOS IPA artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: goblingo-ios-ipa
+#          path: build/ios/ipa/*.ipa
