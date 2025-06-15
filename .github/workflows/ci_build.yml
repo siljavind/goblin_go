@@ -61,10 +61,10 @@ jobs:
         with:
           ruby-version: '3.1'
 
-      - name: Install CocoaPods
+      - name: Clean CocoaPods and reinstall
         run: |
-          sudo gem install cocoapods
           cd ios
+          rm -rf Pods Podfile.lock
           pod install
 
       - name: Create .env file with Mapbox token
