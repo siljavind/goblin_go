@@ -61,11 +61,13 @@ jobs:
         with:
           ruby-version: '3.1'
 
-      - name: Clean CocoaPods and reinstall
+      - name: Clean pods and build
         run: |
+          flutter clean
           cd ios
           rm -rf Pods Podfile.lock
           pod install
+          cd ..
 
       - name: Create .env file with Mapbox token
         run: echo "MAPBOX_TOKEN=${{ secrets.MAPBOX_TOKEN }}" > .env
