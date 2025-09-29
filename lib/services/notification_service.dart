@@ -49,7 +49,7 @@ class NotificationService {
 
     // Schedule the first notification check
     _timer?.cancel();
-    _timer = Timer.periodic(const Duration(hours: 2), (_) => _check());
+    _timer = Timer.periodic(const Duration(minutes: 15), (_) => _check());
   }
 
   Future<void> _check() async {

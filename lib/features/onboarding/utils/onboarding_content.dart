@@ -21,18 +21,18 @@ class OnboardingContent extends StatelessWidget {
       case OnboardingState.awaitingInUse:
         return OnboardingWidget(
           icon: Icons.nature_people,
-          title: "Adventure awaits!",
-          description: "Let me track your location while you use the app.",
-          buttonLabel: "Allow tracking while in use",
+          title: "Location Access Required!",
+          description: "To enable core app features, please allow this app to access your device's location while in use",
+          buttonLabel: "Allow while in use",
           onButtonPressed: viewModel.requestInUse,
         );
 
       case OnboardingState.awaitingAlways:
         return OnboardingWidget(
           icon: Icons.directions_walk,
-          title: "Give me superpowers!",
-          description: "I need \"Always\" location access to count all your outdoor quests.",
-          buttonLabel: "Allow access all the time",
+          title: "Background Location Access",
+          description: "For optimal functionality, including tracking outdoor quests even when the app is not active, please grant \"Allow all the time\" location access.",
+          buttonLabel: "Allow all the time",
           onButtonPressed: viewModel.requestAlways,
         );
 
@@ -40,7 +40,7 @@ class OnboardingContent extends StatelessWidget {
         return OnboardingWidget(
           icon: Icons.lock,
           title: "Permission denied",
-          description: "Location permission denied. Please \"Allow all the time\" in settings.",
+          description: "Location permission has been denied. To use this app's location features, please grant \"Allow all the time\" permission in your device settings.",
           buttonLabel: "Open Settings",
           onButtonPressed: viewModel.openSettings,
           error: true,
