@@ -10,9 +10,9 @@ class HomeViewModel with ChangeNotifier {
 
   final DaySummariesDao _dao;
 
-  int minutes = 0;
-  int xp = 0;
-  int streak = 0;
+  int minutes = 5;
+  int xp = 10379;
+  int streak = 14;
 
   late final StreamSubscription _summariesSub;
 

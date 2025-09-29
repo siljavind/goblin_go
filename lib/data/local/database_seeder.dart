@@ -8,13 +8,23 @@ class DatabaseSeeder {
   DatabaseSeeder(this.db);
 
   Future<void> seedDatabaseForDemo() async {
-    // Check if data already exists to avoid re-seeding every time.
-    // We can check one of the tables.
-    final existingSessions = await db.select(db.outdoorSessions).get();
-    if (existingSessions.isNotEmpty) {
-      print("Database already contains data. Skipping demo seed.");
+    // Determine the start and end of the current day
+    final now = DateTime.now();
+    final startOfToday = DateTime(now.year, now.month, now.day); // Midnight today
+    final endOfToday = DateTime(now.year, now.month, now.day, 23, 59, 59, 999); // End of today
+
+    // Check if there are any sessions that started today
+    final sessionsTodayExpression = db.outdoorSessions.startTime.isBetweenValues(startOfToday, endOfToday);
+    final sessionsTodayQuery = db.select(db.outdoorSessions)..where((tbl) => sessionsTodayExpression);
+    final existingSessionsToday = await sessionsTodayQuery.get();
+
+    if (existingSessionsToday.isNotEmpty) {
+      print("Database already contains sessions for today. Skipping demo seed.");
       return;
     }
+
+    print("Clearing all existing data before seeding...");
+    await clearAllData();
 
     print("Seeding database with demo data...");
 
@@ -33,9 +43,9 @@ class DatabaseSeeder {
           duration: const Duration(minutes: 45).inMinutes,
         ),
         OutdoorSessionsCompanion.insert(
-          startTime: DateTime.now().subtract(const Duration(days: 1, hours: 4)),
-          endTime: DateTime.now().subtract(const Duration(days: 1, hours: 2, minutes: 30)),
-          duration: const Duration(hours: 1, minutes: 30).inMinutes,
+          startTime: DateTime.now().subtract(const Duration(hours: 4)),
+          endTime: DateTime.now().subtract(const Duration(hours: 3, minutes: 50)),
+          duration: const Duration(minutes: 10).inMinutes,
         ),
         // Add more sessions as needed
       ]);
@@ -74,5 +84,16 @@ class DatabaseSeeder {
     });
 
     print("Demo database seeding complete.");
+  }
+
+  // Helper to clear all data, if you decide to use it before seeding
+  Future<void> clearAllData() async {
+    print("Clearing all database data...");
+    await db.transaction(() async {
+      for (var table in db.allTables) {
+        await db.delete(table).go();
+      }
+    });
+    print("All data cleared.");
   }
 }
