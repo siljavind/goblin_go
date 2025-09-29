@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import 'app_shell.dart';
 import 'data/local/app_database.dart';
+import 'data/local/database_seeder.dart';
 import 'data/local/day_summaries_dao.dart';
 import 'data/local/outdoor_sessions_dao.dart';
 import 'features/onboarding/onboarding_viewmodel.dart';

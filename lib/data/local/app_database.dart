@@ -5,6 +5,7 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import 'database_seeder.dart';
 import 'day_summaries_dao.dart';
 import 'outdoor_sessions_dao.dart';
 
