@@ -59,7 +59,7 @@ class ProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double size = 250;
+    const double size = 400;
     return PaddedCard(
       title: 'Daily Progress',
       bigTitle: true,
@@ -76,7 +76,7 @@ class ProgressWidget extends StatelessWidget {
           direction: Axis.vertical,
           center: Text(
             '${(progress * 100).toInt()} %',
-            style: Theme.of(context).textTheme.displayMedium,
+            style: Theme.of(context).textTheme.displayLarge,
           ),
         ),
       ),
@@ -99,7 +99,7 @@ class StatCardsWidget extends StatelessWidget {
             child: PaddedCard(
               title: 'Total XP',
               bigTitle: true,
-              child: Text(vm.xp.toString(), style: Theme.of(context).textTheme.displaySmall),
+              child: Text(vm.xp.toString(), style: Theme.of(context).textTheme.displayLarge),
             ),
           ),
         ),
@@ -109,7 +109,7 @@ class StatCardsWidget extends StatelessWidget {
             child: PaddedCard(
               title: 'Streak',
               bigTitle: true,
-              child: Text(vm.streak.toString(), style: Theme.of(context).textTheme.displaySmall),
+              child: Text(vm.streak.toString(), style: Theme.of(context).textTheme.displayLarge),
             ),
           ),
         ),

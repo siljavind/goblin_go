@@ -23,7 +23,7 @@ class SettingsView extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         children: [
           PaddedCard(
-            title: 'What would you want to be called?',
+            title: 'What would you like to be called?',
             child: TextField(
               controller: TextEditingController(text: vm.username),
               decoration: InputDecoration(

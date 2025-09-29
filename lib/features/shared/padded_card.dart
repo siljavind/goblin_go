@@ -27,8 +27,8 @@ class PaddedCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final titleSize = bigTitle!
-        ? Theme.of(context).textTheme.titleLarge
-        : Theme.of(context).textTheme.titleMedium;
+        ? Theme.of(context).textTheme.displaySmall
+        : Theme.of(context).textTheme.titleLarge;
 
     return Card(
       color: color ?? cs.surfaceContainer,
@@ -43,16 +43,16 @@ class PaddedCard extends StatelessWidget {
           children: [
             if (title != null) ...[
               Text(title!, style: titleSize),
-              Divider(),
+              Divider(thickness: 2.0),
               const SizedBox(height: 12),
             ],
             child,
             if (bottomText != null) ...[
               const SizedBox(height: 12),
-              Divider(),
+              Divider(thickness: 2.0),
               Text(
                 bottomText!,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
             ],
